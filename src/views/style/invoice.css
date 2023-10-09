@@ -1,0 +1,178 @@
+
+
+.inp {
+  height: 50px;
+  width: 230px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: #aaa;
+  text-align: center;
+}
+
+.inp1 {
+  height: 50px;
+  width: 160px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: #aaa;
+  text-align: center;
+}
+
+.main1 {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.main2 {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.main3 {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.main4 {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 20px;
+}
+
+.leadaddress {
+  text-align: center;
+  width: 285%;
+}
+
+.add {
+  height: 50px;
+  width: 285%;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: #aaa;
+  text-align: center;
+  /* margin-right: 10%; */
+  /* margin-left: 10%; */
+}
+
+@media screen and (max-width: 768px) {
+  .add {
+    width: 280px;
+    margin: 0;
+    margin-top: 20px;
+  }
+
+  .leadaddress{
+    width: 280px;
+    margin: 0;
+    margin-top: 20px;
+  }
+
+  .inp  {
+    width: 280px;
+  }
+
+  .inp1  {
+    width: 0px;
+  }
+
+}
+
+.head {
+  text-align: center;
+}
+
+.btn {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: 20%;
+  margin-right: 10%;
+   padding: 0px 25px;
+  width: max-content;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 50px;
+}
+.btn:hover {
+  background-color: #aaa; /* Change this to your desired hover button color */
+}
+
+.bb {
+  justify-content: center;
+  /* display: flex; */
+  align-content: center;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: auto auto; /* Display button and h4 in separate columns */
+  gap: 10px; /* Add some spacing between button and h4 */
+  align-items: center; /* Vertically center the items */
+}
+
+/* Hide the arrow buttons in number input fields */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Set a fixed width for the input fields */
+.inp1 {
+  width: 100%;
+}
+
+.h4tag {
+  display: inline;
+  color: rgb(237, 49, 49);
+  font-size: 26px;
+  font-family: 'Times New Roman', Times, serif;
+  width: 40%;
+}
+
+@media (max-width: 768px) {
+  .h4tag {
+    display: block;
+    width: 280px;
+    margin-left: 10%;
+    text-align: center;
+    margin-top: 5%;
+    line-height: 30px;
+  }
+
+  .btn {
+    margin-left: 10%;
+    display: block;
+    width: 280px;
+    margin-top: 5%;
+  }
+}

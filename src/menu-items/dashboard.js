@@ -19,11 +19,12 @@ const dashboard = {
 
       children: [
         {
-          id: 'default',
+          id: 'addlead',
           title: 'Add Lead',
           type: 'item',
-          url: '/dashboard/default',
-          target: true
+          url: '/lead/User',
+          target: true,
+          breadcrums: false
         },
         {
           id: 'register3',

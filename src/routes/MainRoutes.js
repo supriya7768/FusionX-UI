@@ -16,6 +16,8 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 const AuthCreateInvoice = Loadable(lazy(() => import('views/invoice/Create')));
 const AuthListInvoice = Loadable(lazy(() => import('views/invoice/List')));
 
+const AuthLeadDetails = Loadable(lazy(() => import('views/lead/User')));
+
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -96,6 +98,17 @@ const MainRoutes = {
         }
       ]
     },
+
+    {
+      path: 'lead',
+      children: [
+        {
+          path: 'User',
+          element: <AuthLeadDetails />
+        }
+      ]
+    },
+
     {
       path: 'sample-page',
       element: <SamplePage />

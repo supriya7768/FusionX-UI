@@ -3,7 +3,9 @@ import { IconReportMoney, IconMoneybag, IconZoomMoney } from '@tabler/icons';
 
 // constant
 const icons = {
-  IconReportMoney, IconMoneybag, IconZoomMoney
+  IconReportMoney,
+  IconMoneybag,
+  IconZoomMoney
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //

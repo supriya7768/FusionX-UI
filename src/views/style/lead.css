@@ -1,0 +1,175 @@
+
+
+/*{@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.header{
+  height: 480px;
+  border: 1px solid;
+  width: 500px;
+  border-radius: 15px;
+}
+.container{
+  display: flex;
+  gap: 60px;
+  margin: 10px;
+ 
+}
+.header2{
+  border: 1px solid;
+  width: 1000px;
+  border-radius: 15px;
+  height: auto;
+}
+.formbold-form-input {
+  text-align: center;
+  width: 95%;
+  padding: 13px 22px;
+  border-radius: 5px;
+  border: 1px solid #dde3ec;
+  background:#6666661c;
+  font-weight: 500;
+  font-size: 16px;
+  color: #536387;
+  outline: none;
+  resize: none;
+  margin:20px ;
+}
+.p-1{
+  margin-left: 220px;
+  margin-top: 5px;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+.formbold-form-input1 {
+  text-align: center;
+  width: 45%;
+  padding: 13px 22px;
+  border-radius: 5px;
+  border: 1px solid #dde3ec;
+  background:#6666661c;
+  font-weight: 500;
+  font-size: 16px;
+  color: #536387;
+  outline: none;
+  resize: none;
+  margin:20px ;
+}
+.d-1{
+  display: flex;
+  width: 100%;
+}
+.d-2{
+  display: flex;
+}
+.p-2{
+  margin-top: -18px;
+  margin-bottom: -10px;
+}
+.h-1{
+  margin-left: 30px;
+  margin-top: 10px;
+}
+.btn-1{
+  margin: 25px;
+  height: 40px;
+  width: 150px;
+  border-radius: 10px;
+  border: 1px rgb(38, 126, 193);
+  color:white;
+  background-color: rgb(38, 126, 193);
+}
+img{
+  height: 150px;
+  margin-top: 40px;
+  margin-left: 110px;
+  border: 1px solid;
+  border-radius: 200px;
+  width: 160px;
+ 
+}
+h4{
+  margin-top: 30px;
+  margin-left: 50px;
+}
+.btn-2{
+  margin-top:40px ;
+  margin-left: 120px;
+  height: 40px;
+  width: 150px;
+  border-radius: 10px;
+  border: 1px rgb(38, 126, 193);
+  color:white;
+  background-color: rgb(38, 126, 193);
+}}*/
+
+.main{
+    border:solid 1px;
+    width: 1000px;
+    margin-left: auto;
+    height: auto;
+    border-radius: 10px;
+    
+  }
+  
+    
+  .Left{
+    
+    width: 400px;
+    height: auto;
+    display: grid;
+    margin-left: 60px;
+  
+  }
+  
+  .Desti{
+    display:block;
+  }
+  .hei{
+    margin-top: 10px;
+    height: 39px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    border: #aaa;
+  }
+  .mar{
+    margin-top: 10px;  
+  }
+  .right{
+    
+    width: 400px;
+    height: auto;
+    display: grid;
+    margin-left: 60px;
+  }
+  .marr{
+    margin-top: 15px;
+  }
+  .main1{
+    
+    height: auto;
+    display: flex;
+  }
+  .btnn{
+    margin-top: 35px;
+    margin-left: 45%;
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .name{
+    margin-left: 22%;
+  }
+  .courseD{
+    display: none;
+  }
+  .ref{
+    display: none;
+  }   

@@ -10,24 +10,24 @@ import '../style/lead.css';
 const AddLead = () => {
   const [responseMsg, setResponseMsg] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
-  const [selectedMode, setSelectedMode] = useState(''); 
-  const [selectedExperience, setSelectedExperience] = useState(''); 
-  const [selectedcdfoi, setSelectedcdfoi] = useState(''); 
-  const [selectedInterest, setSelectedInterest] = useState(''); 
-  const [selectedApproach, setSelectedApproach] = useState(''); 
+  const [selectedMode, setSelectedMode] = useState('');
+  const [selectedExperience, setSelectedExperience] = useState('');
+  const [selectedcdfoi, setSelectedcdfoi] = useState('');
+  const [selectedInterest, setSelectedInterest] = useState('');
+  const [selectedApproach, setSelectedApproach] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
-  const [showInstituteFields, setShowInstituteFields] = useState(false); // State to control field visibility 
+  const [showInstituteFields, setShowInstituteFields] = useState(false); // State to control field visibility
 
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
   };
 
   const handleMode = (event) => {
-    setSelectedMode(event.target.value); 
+    setSelectedMode(event.target.value);
   };
-  
+
   const handleExperience = (event) => {
-    setSelectedExperience(event.target.value); 
+    setSelectedExperience(event.target.value);
   };
 
   const handlecdfoi = (event) => {
@@ -40,15 +40,15 @@ const AddLead = () => {
   };
 
   const handleinterest = (event) => {
-    setSelectedInterest(event.target.value); 
+    setSelectedInterest(event.target.value);
   };
 
   const handleapproach = (event) => {
-    setSelectedApproach(event.target.value); 
+    setSelectedApproach(event.target.value);
   };
 
   const handlestatus = (event) => {
-    setSelectedStatus(event.target.value); 
+    setSelectedStatus(event.target.value);
   };
 
   const handleAddLead = () => {
@@ -121,7 +121,6 @@ const AddLead = () => {
 
   return (
     <MainCard title="Add Lead">
-
       {/* =====================lead details=================== */}
 
       <Grid container spacing={gridSpacing}>
@@ -165,28 +164,27 @@ const AddLead = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="email" className="mar">
+                <label htmlFor="passingYear" className="mar">
                   Passing Year
                 </label>
-                <input type="text" id="email" className="form-control" />
+                <input type="number" id="passingYear" className="form-control" />
               </div>
 
               <div className="form-group">
-                <label htmlFor="mobileNo" className="marr">
+                <label htmlFor="collegeName" className="marr">
                   College Name
                 </label>
-                <input type="number" id="mobileNo" className="form-control" />
+                <input type="text" id="collegeName" className="form-control" />
               </div>
             </Grid>
           </SubCard>
         </Grid>
 
-              {/* ================courses===================== */}
-    
+        {/* ================courses===================== */}
+
         <Grid item xs={12} md={6}>
           <SubCard title="Courses">
-            
-          <div className="form-group">
+            <div className="form-group">
               <label htmlFor="courseName" className="mar">
                 Course Name
               </label>
@@ -200,7 +198,6 @@ const AddLead = () => {
                 <option>Diploma in UI/UX Design</option>
               </select>
             </div>
-
             <div className="form-group">
               <label htmlFor="mode" className="mar">
                 Mode
@@ -212,7 +209,6 @@ const AddLead = () => {
                 <option>Hybrid</option>
               </select>
             </div>
-
             <div className="form-group">
               <label htmlFor="experience" className="mar">
                 Experience
@@ -223,7 +219,6 @@ const AddLead = () => {
                 <option>Non IT</option>
               </select>
             </div>
-
             <div className="form-group">
               <label htmlFor="courseDoneFromOtherInstitute" className="mar">
                 Course Done From Other Institute
@@ -234,48 +229,41 @@ const AddLead = () => {
                 <option>No</option>
               </select>
             </div>
-
             {showInstituteFields && (
-            <div className="courseD">
-              <div className="form-group">
-                <label htmlFor="instituteName" className="mar">
-                  Institute Name
-                </label>
-                <input type="text" id="instituteName" className="form-control" />
-              </div>
+              <div className="courseD">
+                <div className="form-group">
+                  <label htmlFor="instituteName" className="mar">
+                    Institute Name
+                  </label>
+                  <input type="text" id="instituteName" className="form-control" />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="reasonForChanging" className="mar">
-                  Reason For Changing
-                </label>
-                <input type="text" id="reasonForChanging" className="form-control" />
-              </div>
+                <div className="form-group">
+                  <label htmlFor="reasonForChanging" className="mar">
+                    Reason For Changing
+                  </label>
+                  <input type="text" id="reasonForChanging" className="form-control" />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="fees" className="mar">
-                  Fees
-                </label>
-                <input type="number" id="fees" className="form-control" />
+                <div className="form-group">
+                  <label htmlFor="fees" className="mar">
+                    Fees
+                  </label>
+                  <input type="number" id="fees" className="form-control" />
+                </div>
               </div>
-            </div>
             )}
-
-              
-
-              <div className="form-group">
-                <label htmlFor="interest" className="marr">
-                  Interest
-                </label>
-                <select id="interest" className="form-control clr" onChange={handleinterest}>
-                  <option></option>
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
-                </select>
-              </div>
-
-             
-            
+            <div className="form-group">
+              <label htmlFor="interest" className="marr">
+                Interest
+              </label>
+              <select id="interest" className="form-control clr" onChange={handleinterest}>
+                <option></option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+            </div>
             <button className="btn" onClick={handleAddLead}>
               Add Lead
             </button>{' '}
@@ -284,60 +272,56 @@ const AddLead = () => {
             </h4>
           </SubCard>
         </Grid>
-      
 
-      {/* =======================references==================== */}
+        {/* =======================references==================== */}
 
-      <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           <SubCard title="Reference">
-            
-          <div className="form-group">
-                <label htmlFor="approach" className="marr">
-                  Approach
-                </label>
-                <select id="approach" className="form-control clr" onChange={handleapproach}>
-                  <option></option>
-                  <option>Instagram</option>
-                  <option>Facebook</option>
-                  <option>Google</option>
-                  <option>Search near by area</option>
-                  <option>Reference</option>
-                  <option>Other</option>
-                </select>
-              </div>
+            <div className="form-group">
+              <label htmlFor="approach" className="marr">
+                Approach
+              </label>
+              <select id="approach" className="form-control clr" onChange={handleapproach}>
+                <option></option>
+                <option>Instagram</option>
+                <option>Facebook</option>
+                <option>Google</option>
+                <option>Search near by area</option>
+                <option>Reference</option>
+                <option>Other</option>
+              </select>
+            </div>
             <div className="ref">
               <div className="form-group">
-                  <label htmlFor="referenceName" className="marr">
-                    Reference Name
-                  </label>
-                  <input type="text" id="referenceName" className="form-control" />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="batchCode" className="marr">
-                    Batch Code
-                  </label>
-                  <input type="text" id="batchCode" className="form-control" />
-                </div>
+                <label htmlFor="referenceName" className="marr">
+                  Reference Name
+                </label>
+                <input type="text" id="referenceName" className="form-control" />
               </div>
 
               <div className="form-group">
-                <label htmlFor="status" className="marr">
-                  Status
+                <label htmlFor="batchCode" className="marr">
+                  Batch Code
                 </label>
-                <select id="status" className="form-control clr" onChange={handlestatus}>
-                  <option></option>
-                  <option>Open</option>
-                  <option>Deal Done</option>
-                  <option>PostPone</option>
-                  <option>Cancel</option>
-                </select>
+                <input type="text" id="batchCode" className="form-control" />
               </div>
+            </div>
 
+            <div className="form-group">
+              <label htmlFor="status" className="marr">
+                Status
+              </label>
+              <select id="status" className="form-control clr" onChange={handlestatus}>
+                <option></option>
+                <option>Open</option>
+                <option>Deal Done</option>
+                <option>PostPone</option>
+                <option>Cancel</option>
+              </select>
+            </div>
           </SubCard>
         </Grid>
-        </Grid>
-
+      </Grid>
     </MainCard>
   );
 };

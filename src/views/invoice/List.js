@@ -11,6 +11,7 @@ const List = () => {
   const [sortDirection, setSortDirection] = useState('asc');
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [dropdownNames, setDropdownNames] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState('All');
   // const [filteredInvoices, setFilteredInvoices] = useState([]);
 
   useEffect(() => {
@@ -49,7 +50,20 @@ const List = () => {
     );
   };
 
-  const sortedInvoices = [...invoices].sort((a, b) => {
+  const handleShowAllInvoices = () => {
+    setSelectedStatus('All');
+    // You can also reset the selectedName here if needed.
+  };
+
+  const filterInvoicesByStatus = () => {
+    if (selectedStatus === 'All') {
+      return invoices; // Return all invoices
+    } else {
+      return invoices.filter((invoice) => invoice.status === selectedStatus);
+    }
+  };
+
+  const sortedInvoices = [...filterInvoicesByStatus()].sort((a, b) => {
     if (sortField) {
       if (sortField === 'dueDate') {
         // Handle sorting for the 'dueDate' field with empty or null values
@@ -75,34 +89,72 @@ const List = () => {
     return 0;
   });
 
+  // const calculateTotals = () => {
+  //   let totalQuantity = 0;
+  //   let totalAmount = 0;
+
+  //   invoices.forEach((invoice) => {
+  //     // Check if 'quantity' is a valid number
+  //     const quantity = parseFloat(invoice.quantity);
+
+  //     if (!isNaN(quantity)) {
+  //       totalQuantity += quantity;
+  //     }
+
+  //     // Ensure 'totalAmount' is a valid number as well
+  //     const amount = parseFloat(invoice.totalAmount);
+
+  //     if (!isNaN(amount)) {
+  //       totalAmount += amount;
+  //     }
+  //   });
+
+  //   return { totalQuantity, totalAmount };
+  // };
+
+  // const { totalQuantity, totalAmount } = calculateTotals();
+
   return (
     <MainCard title="Invoice List">
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
           <div>
-            <nav>
-              <div className="dropdown" onMouseEnter={() => setIsDropdownVisible(true)} onMouseLeave={() => setIsDropdownVisible(false)}>
-                <button className="dropbtn">Select User</button>
-                {isDropdownVisible && displayDropdown(dropdownNames)}
-              </div>
-              <button id="nvd">Generate report</button>
-            </nav>
+            {/* <nav> */}
+            <div className="dropdown" onMouseEnter={() => setIsDropdownVisible(true)} onMouseLeave={() => setIsDropdownVisible(false)}>
+              <button className="dropbtn">Select User</button>
+              {isDropdownVisible && displayDropdown(dropdownNames)}
+            </div>
+            {/* <button id="nvd">Generate report</button> */}
+            {/* </nav> */}
             <div className="navbar">
               <div>
-                <a href="#">All invoices</a>
-                <a href="#">Paid</a>
+                {/* <div id="newinvoices">
+                  <a id="anewinvoices" href="">
+                    <i className="material-icons"></i>All Invoices
+                    <div>Total Quantity: {totalQuantity}</div>
+                    <div>₹ {totalAmount}</div>
+                  </a>
+                </div> */}
+                <a href="#" onClick={handleShowAllInvoices}>
+                  All Invoices
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Paid')}>
+                  Paid
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Pending')}>
+                  Pending
+                </a>
                 <a href="#">Overdue</a>
-                <a href="#">Draft</a>
-                <a href="#">Recurring</a>
-                <a href="#">Cancelled</a>
+                {/* <a href="#">Recurring</a>
+                <a href="#">Cancelled</a> */}
               </div>
-              <div id="newinvoices">
+              {/* <div id="newinvoices">
                 <a id="anewinvoices" href="">
                   <i className="material-icons"></i>New invoice
                 </a>
-              </div>
+              </div> */}
             </div>
-            <br></br>
+            {/* <br></br> */}
             <table>
               <thead>
                 <tr>

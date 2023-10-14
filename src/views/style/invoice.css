@@ -1,5 +1,3 @@
-
-
 .inp {
   height: 50px;
   width: 230px;
@@ -90,20 +88,19 @@
     margin-top: 20px;
   }
 
-  .leadaddress{
+  .leadaddress {
     width: 280px;
     margin: 0;
     margin-top: 20px;
   }
 
-  .inp  {
+  .inp {
     width: 280px;
   }
 
-  .inp1  {
+  .inp1 {
     width: 0px;
   }
-
 }
 
 .head {
@@ -115,7 +112,7 @@
   margin-top: 20px;
   margin-left: 20%;
   margin-right: 10%;
-   padding: 0px 25px;
+  padding: 0px 25px;
   width: max-content;
   background-color: whitesmoke;
   border-radius: 5px;
@@ -140,8 +137,8 @@
 }
 
 /* Hide the arrow buttons in number input fields */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -175,4 +172,169 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 280px;
     margin-top: 5%;
   }
+}
+
+.List {
+  text-align: center;
+}
+
+#nvd {
+  border: solid blue;
+  color: blue;
+  font-size: 18px;
+  font-weight: px;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+#anewinvoices {
+  background-image: linear-gradient(to right, blue, pink);
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  width: 150px;
+}
+
+nav {
+  height: 70px;
+  display: grid;
+  justify-content: space-between;
+  box-shadow: aquamarine;
+  grid-template-columns: 150px 160px;
+}
+
+.menu-button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the dropdown button */
+.dropbtn {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Style the dropdown content links */
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: #333;
+}
+
+/* Style the dropdown content links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown content when the button is hovered over */
+.dropdown:hover .dropdown-content {
+  display: block;
+  left: 50%; /* Center the dropdown content relative to the button */
+  transform: translateX(-50%);
+}
+
+.menu-button::after {
+  content: '\u2026'; /* Unicode character for ellipsis (three dots) */
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+.nav-item dropdown {
+  margin-right: 30px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, 
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+h1 {
+  text-align: center;
+}
+
+.navbar a {
+  float: left; /* Float the links to the left */
+  display: block;
+  color: black; /* Text color */
+  text-align: center;
+  padding: 14px 16px; /* Padding for the links */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Change the color of links on hover */
+.navbar a:hover {
+  background-color: #ddd; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
+
+.navbar {
+  justify-content: space-between;
+  overflow: hidden;
+  display: flex;
+}
+
+.dropdownn-button {
+  font-size: 16px; /* Adjust the font size as needed */
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s; /* Add a smooth transition effect */
+  content: "▼"; /* Display a down arrow character */
+}
+
+/* Style for the ascending and descending arrows */
+.dropdownn-button.ascending::after {
+  content: "▼"; /* Display a down arrow character for ascending */
+  transform: rotate(0deg); /* Default state - no rotation */
+}
+
+.dropdownn-button.descending::after {
+  content: "▼"; /* Display a down arrow character for descending */
+  transform: rotate(180deg); /* Rotated 180 degrees (upside-down arrow) */
 }

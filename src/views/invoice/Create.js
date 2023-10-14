@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 // import MuiTypography from '@mui/material/Typography';
 
 // project imports
-import SubCard from 'ui-component/cards/SubCard';
+// import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
 // import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { gridSpacing } from 'store/constant';
@@ -214,10 +214,9 @@ const Create = () => {
     <MainCard title="Creating Invoice">
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
-          <SubCard title="Generate Invoice">
             <Grid container direction="column" spacing={1}>
               <Grid className="head" item>
-                <h1>Create Invoice</h1>
+                {/* <h1>Create Invoice</h1> */}
               </Grid>
               <hr></hr>
               <Grid className="main1">
@@ -306,7 +305,6 @@ const Create = () => {
                 </h4>
               </Grid>
             </Grid>
-          </SubCard>
         </Grid>
       </Grid>
     </MainCard>

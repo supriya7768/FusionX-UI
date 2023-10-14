@@ -9,8 +9,8 @@ const AuthLogin3 = Loadable(lazy(() => import('views/pages/authentication/authen
 const AuthRegister3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
 const AuthCreateInvoice = Loadable(lazy(() => import('views/invoice/Create')));
 const AuthListInvoice = Loadable(lazy(() => import('views/invoice/List')));
-
-const AuthLeadDetails = Loadable(lazy(() => import('views/lead/User')));
+const AuthAddLead = Loadable(lazy(() => import('views/lead/AddLead')));
+const AuthLeadList = Loadable(lazy(() => import('views/lead/LeadList')));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
@@ -35,8 +35,12 @@ const AuthenticationRoutes = {
       element: <AuthListInvoice />
     },
     {
-      path: '/lead/User',
-      element: <AuthLeadDetails />
+      path: '/lead/AddLead',
+      element: <AuthAddLead />
+    },
+    {
+      path: '/lead/LeadList',
+      element: <AuthLeadList />
     }
   ]
 };

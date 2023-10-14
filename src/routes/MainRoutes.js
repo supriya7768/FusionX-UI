@@ -5,7 +5,7 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+// const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
@@ -15,11 +15,9 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialI
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 const AuthCreateInvoice = Loadable(lazy(() => import('views/invoice/Create')));
 const AuthListInvoice = Loadable(lazy(() => import('views/invoice/List')));
-
-const AuthLeadDetails = Loadable(lazy(() => import('views/lead/User')));
-
-// sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+const AuthAddLead = Loadable(lazy(() => import('views/lead/AddLead')));
+const AuthLeadList = Loadable(lazy(() => import('views/lead/LeadList')));
+// const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -29,17 +27,17 @@ const MainRoutes = {
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element: <AuthAddLead />
     },
-    {
-      path: 'dashboard',
-      children: [
-        {
-          path: 'default',
-          element: <DashboardDefault />
-        }
-      ]
-    },
+    // {
+    //   path: 'dashboard',
+    //   children: [
+    //     {
+    //       path: 'default',
+    //       element: <DashboardDefault />
+    //     }
+    //   ]
+    // },
     {
       path: 'utils',
       children: [
@@ -103,15 +101,14 @@ const MainRoutes = {
       path: 'lead',
       children: [
         {
-          path: 'User',
-          element: <AuthLeadDetails />
+          path: 'AddLead',
+          element: <AuthAddLead />
+        },
+        {
+          path: 'LeadList',
+          element: <AuthLeadList />
         }
       ]
-    },
-
-    {
-      path: 'sample-page',
-      element: <SamplePage />
     }
   ]
 };

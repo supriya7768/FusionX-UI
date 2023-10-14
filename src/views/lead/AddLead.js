@@ -15,7 +15,8 @@ const AddLead = () => {
   const [selectedcdfoi, setSelectedcdfoi] = useState(''); 
   const [selectedInterest, setSelectedInterest] = useState(''); 
   const [selectedApproach, setSelectedApproach] = useState(''); 
-  const [selectedStatus, setSelectedStatus] = useState(''); 
+  const [selectedStatus, setSelectedStatus] = useState('');
+  const [showInstituteFields, setShowInstituteFields] = useState(false); // State to control field visibility 
 
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
@@ -30,7 +31,12 @@ const AddLead = () => {
   };
 
   const handlecdfoi = (event) => {
-    setSelectedcdfoi(event.target.value); 
+    setSelectedcdfoi(event.target.value);
+    if (event.target.value === 'Yes') {
+      setShowInstituteFields(true);
+    } else {
+      setShowInstituteFields(false);
+    }
   };
 
   const handleinterest = (event) => {
@@ -115,6 +121,9 @@ const AddLead = () => {
 
   return (
     <MainCard title="Add Lead">
+
+      {/* =====================lead details=================== */}
+
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12} md={6}>
           <SubCard title="Personal Information">
@@ -134,13 +143,6 @@ const AddLead = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="collegeName" className="mar">
-                  College Name
-                </label>
-                <input type="text" id="collegeName" className="form-control" />
-              </div>
-
-              <div className="form-group">
                 <label htmlFor="mobileNo" className="marr">
                   Mobile No
                 </label>
@@ -149,9 +151,42 @@ const AddLead = () => {
             </Grid>
           </SubCard>
         </Grid>
+
+        {/* ==================qualification================= */}
+
         <Grid item xs={12} md={6}>
-          <SubCard title="Course and Preferences">
-            <div className="form-group">
+          <SubCard title="Qualification">
+            <Grid container direction="column" spacing={1}>
+              <div className="form-group">
+                <label htmlFor="leadName" className="mar">
+                  Degree
+                </label>
+                <input type="text" id="leadName" className="form-control" name="name" />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email" className="mar">
+                  Passing Year
+                </label>
+                <input type="text" id="email" className="form-control" />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="mobileNo" className="marr">
+                  College Name
+                </label>
+                <input type="number" id="mobileNo" className="form-control" />
+              </div>
+            </Grid>
+          </SubCard>
+        </Grid>
+
+              {/* ================courses===================== */}
+    
+        <Grid item xs={12} md={6}>
+          <SubCard title="Courses">
+            
+          <div className="form-group">
               <label htmlFor="courseName" className="mar">
                 Course Name
               </label>
@@ -200,6 +235,7 @@ const AddLead = () => {
               </select>
             </div>
 
+            {showInstituteFields && (
             <div className="courseD">
               <div className="form-group">
                 <label htmlFor="instituteName" className="mar">
@@ -222,24 +258,9 @@ const AddLead = () => {
                 <input type="number" id="fees" className="form-control" />
               </div>
             </div>
-          </SubCard>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <SubCard title="Qualifications">
-            <div className="right">
-              <div className="form-group">
-                <label htmlFor="qualification" className="marr">
-                  Qualification
-                </label>
-                <input type="text" id="qualification" className="form-control clr" />
-              </div>
+            )}
 
-              <div className="form-group">
-                <label htmlFor="passingYear" className="marr">
-                  Passing Year
-                </label>
-                <input type="number" id="passingYear" className="form-control clr" />
-              </div>
+              
 
               <div className="form-group">
                 <label htmlFor="interest" className="marr">
@@ -253,7 +274,24 @@ const AddLead = () => {
                 </select>
               </div>
 
-              <div className="form-group">
+             
+            
+            <button className="btn" onClick={handleAddLead}>
+              Add Lead
+            </button>{' '}
+            <h4 className="h4tag" id="reg-response">
+              {responseMsg}
+            </h4>
+          </SubCard>
+        </Grid>
+      
+
+      {/* =======================references==================== */}
+
+      <Grid item xs={12} md={6}>
+          <SubCard title="Reference">
+            
+          <div className="form-group">
                 <label htmlFor="approach" className="marr">
                   Approach
                 </label>
@@ -267,9 +305,8 @@ const AddLead = () => {
                   <option>Other</option>
                 </select>
               </div>
-
-              <div className="ref">
-                <div className="form-group">
+            <div className="ref">
+              <div className="form-group">
                   <label htmlFor="referenceName" className="marr">
                     Reference Name
                   </label>
@@ -296,16 +333,11 @@ const AddLead = () => {
                   <option>Cancel</option>
                 </select>
               </div>
-            </div>
-            <button className="btn" onClick={handleAddLead}>
-              Add Lead
-            </button>{' '}
-            <h4 className="h4tag" id="reg-response">
-              {responseMsg}
-            </h4>
+
           </SubCard>
         </Grid>
-      </Grid>
+        </Grid>
+
     </MainCard>
   );
 };

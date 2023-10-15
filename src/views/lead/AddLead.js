@@ -17,6 +17,11 @@ const AddLead = () => {
   const [selectedApproach, setSelectedApproach] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
   const [showInstituteFields, setShowInstituteFields] = useState(false); // State to control field visibility
+  const [yearOfExperience, setYearOfExperience] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [showReferenceFields, setShowReferenceFields] = useState(false); // State to control reference field visibility
+  const [referenceName, setReferenceName] = useState('');
+  const [batchCode, setBatchCode] = useState('');
 
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
@@ -26,8 +31,13 @@ const AddLead = () => {
     setSelectedMode(event.target.value);
   };
 
-  const handleExperience = (event) => {
+   const handleExperience = (event) => {
     setSelectedExperience(event.target.value);
+    if (event.target.value === 'IT') {
+      setShowInstituteFields(true);
+    } else {
+      setShowInstituteFields(false);
+    }
   };
 
   const handlecdfoi = (event) => {
@@ -45,6 +55,11 @@ const AddLead = () => {
 
   const handleapproach = (event) => {
     setSelectedApproach(event.target.value);
+    if (event.target.value === 'Reference') {
+      setShowReferenceFields(true);
+    } else {
+      setShowReferenceFields(false);
+    }
   };
 
   const handlestatus = (event) => {
@@ -81,6 +96,8 @@ const AddLead = () => {
       courseName: selectedCourse,
       mode: selectedMode,
       experience: selectedExperience,
+      yearOfExperience,
+      designation,
       courseDoneFromOtherInstitute: selectedcdfoi,
       instituteName,
       reasonForChanging,
@@ -147,6 +164,13 @@ const AddLead = () => {
                 </label>
                 <input type="number" id="mobileNo" className="form-control" />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="address" className="mar">
+                  Address
+                </label>
+                <input type="text" id="address" className="form-control" />
+              </div>
             </Grid>
           </SubCard>
         </Grid>
@@ -161,6 +185,13 @@ const AddLead = () => {
                   Degree
                 </label>
                 <input type="text" id="leadName" className="form-control" name="name" />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="field" className="mar">
+                  Field
+                </label>
+                <input type="text" id="field" className="form-control" />
               </div>
 
               <div className="form-group">
@@ -219,6 +250,36 @@ const AddLead = () => {
                 <option>Non IT</option>
               </select>
             </div>
+
+            {showInstituteFields && (
+              <div>
+                <div className="form-group">
+                  <label htmlFor="yearOfExperience" className="mar">
+                    Year of Experience
+                  </label>
+                  <input
+                    type="number"
+                    id="yearOfExperience"
+                    className="form-control"
+                    onChange={(e) => setYearOfExperience(e.target.value)}
+                    value={yearOfExperience}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="designation" className="mar">
+                    Designation
+                  </label>
+                  <input
+                    type="text"
+                    id="designation"
+                    className="form-control"
+                    onChange={(e) => setDesignation(e.target.value)}
+                    value={designation}
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="form-group">
               <label htmlFor="courseDoneFromOtherInstitute" className="mar">
                 Course Done From Other Institute
@@ -244,13 +305,6 @@ const AddLead = () => {
                   </label>
                   <input type="text" id="reasonForChanging" className="form-control" />
                 </div>
-
-                <div className="form-group">
-                  <label htmlFor="fees" className="mar">
-                    Fees
-                  </label>
-                  <input type="number" id="fees" className="form-control" />
-                </div>
               </div>
             )}
             <div className="form-group">
@@ -264,12 +318,6 @@ const AddLead = () => {
                 <option>Low</option>
               </select>
             </div>
-            <button className="btn" onClick={handleAddLead}>
-              Add Lead
-            </button>{' '}
-            <h4 className="h4tag" id="reg-response">
-              {responseMsg}
-            </h4>
           </SubCard>
         </Grid>
 
@@ -291,22 +339,23 @@ const AddLead = () => {
                 <option>Other</option>
               </select>
             </div>
-            <div className="ref">
-              <div className="form-group">
-                <label htmlFor="referenceName" className="marr">
-                  Reference Name
-                </label>
-                <input type="text" id="referenceName" className="form-control" />
-              </div>
+            {showReferenceFields && (
+              <div className="ref">
+                <div className="form-group">
+                  <label htmlFor="referenceName" className="marr">
+                    Reference Name
+                  </label>
+                  <input type="text" id="referenceName" className="form-control" onChange={(e) => setReferenceName(e.target.value)} value={referenceName} />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="batchCode" className="marr">
-                  Batch Code
-                </label>
-                <input type="text" id="batchCode" className="form-control" />
+                <div className="form-group">
+                  <label htmlFor="batchCode" className="marr">
+                    Batch Code
+                  </label>
+                  <input type="text" id="batchCode" className="form-control" onChange={(e) => setBatchCode(e.target.value)} value={batchCode} />
+                </div>
               </div>
-            </div>
-
+            )}
             <div className="form-group">
               <label htmlFor="status" className="marr">
                 Status
@@ -319,6 +368,12 @@ const AddLead = () => {
                 <option>Cancel</option>
               </select>
             </div>
+            <button className="btn" onClick={handleAddLead}>
+              Add Lead
+            </button>{' '}
+            <h4 className="h4tag" id="reg-response">
+              {responseMsg}
+            </h4>
           </SubCard>
         </Grid>
       </Grid>

@@ -122,8 +122,9 @@ const List = () => {
             {/* <nav> */}
             <div className="dropdown" onMouseEnter={() => setIsDropdownVisible(true)} onMouseLeave={() => setIsDropdownVisible(false)}>
               <button className="dropbtn">Select User</button>
-              {isDropdownVisible && displayDropdown(dropdownNames)}
+              {isDropdownVisible && displayDropdown([...new Set(dropdownNames)])}
             </div>
+            <input className="inp" type="text" placeholder="Enter Lead Name"></input>
             {/* <button id="nvd">Generate report</button> */}
             {/* </nav> */}
             <div className="navbar">
@@ -154,7 +155,6 @@ const List = () => {
                 </a>
               </div> */}
             </div>
-            {/* <br></br> */}
             <table>
               <thead>
                 <tr>

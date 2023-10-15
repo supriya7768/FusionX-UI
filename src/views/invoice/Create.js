@@ -37,6 +37,7 @@ const Create = () => {
   const totalAmountRef = useRef(null);
 
   const [responseMsg, setResponseMsg] = useState('');
+  const [showReasonField, setShowReasonField] = useState(false);
 
   const calculateTaxes = () => {
     const subAmountValue = subAmountRef.current.value;
@@ -210,6 +211,11 @@ const Create = () => {
     xhr.send();
   };
 
+  const handleStatusChange = () => {
+    const selectedStatus = statusRef.current.value;
+    setShowReasonField(selectedStatus === 'Pending'); // Show "Due Date" if status is "Pending"
+  };
+
   return (
     <MainCard title="Create Invoice">
       {/* =====================lead details=================== */}
@@ -281,7 +287,7 @@ const Create = () => {
                 <label htmlFor="passingYear" className="mar">
                   Status
                 </label>
-                <select className="form-control" ref={statusRef}>
+                <select className="form-control" ref={statusRef} onChange={handleStatusChange}>
                   <option>Paid</option>
                   <option>Pending</option>
                   <option>Refund</option>
@@ -289,10 +295,14 @@ const Create = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="collegeName" className="marr">
-                  Due date
-                </label>
-                <input className="form-control" type="date" ref={dueDateRef}></input>
+                {showReasonField && (
+                  <>
+                    <label htmlFor="collegeName" className="marr">
+                      Due date
+                    </label>
+                    <input className="form-control" type="date" ref={dueDateRef} />
+                  </>
+                )}
               </div>
             </Grid>
           </SubCard>

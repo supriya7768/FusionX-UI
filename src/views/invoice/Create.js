@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 // import MuiTypography from '@mui/material/Typography';
 
 // project imports
-// import SubCard from 'ui-component/cards/SubCard';
+import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
 // import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { gridSpacing } from 'store/constant';
@@ -211,103 +211,138 @@ const Create = () => {
   };
 
   return (
-    <MainCard title="Creating Invoice">
+    <MainCard title="Create Invoice">
+      {/* =====================lead details=================== */}
+
       <Grid container spacing={gridSpacing}>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
+          <SubCard title="Lead Details">
             <Grid container direction="column" spacing={1}>
-              <Grid className="head" item>
-                {/* <h1>Create Invoice</h1> */}
-              </Grid>
-              <hr></hr>
-              <Grid className="main1">
-                <Grid className="col-lg-4">
-                  <h4>Lead Name*</h4>
-                  <input className="inp" type="text" placeholder="Enter Lead Name" ref={nameRef}></input>
-                </Grid>
-                <Grid className="col-lg-4">
-                  <h4>Lead Email*</h4>
-                  <input className="inp" type="email" placeholder="Enter Email id" ref={emailRef}></input>
-                </Grid>
-                <Grid className="col-lg-4">
-                  <h4>Lead Mobile Number*</h4>
-                  <input className="inp" id="myNumberInput" type="number" placeholder="Enter Mobile Number" ref={mobileRef}></input>
-                </Grid>
-              </Grid>
+              <div className="form-group">
+                <label htmlFor="leadName" className="mar">
+                  Lead Name
+                </label>
+                <input type="text" id="nameRef" className="form-control" ref={nameRef} name="name" />
+              </div>
 
-              <Grid className="main2">
-                <Grid className="col-lg-8">
-                  <h4 className="leadaddress">Lead Address*</h4>
-                  <input className="add" type="text" placeholder="Address" ref={addressRef}></input>
-                </Grid>
-                <Grid className="col-lg-4">
-                  <h4>Course Name*</h4>
-                  <select className="inp" ref={courseNameRef}>
-                    <option>Select Course</option>
-                    <option>Software Testing(Java Selenium)</option>
-                    <option>Automation Testing(Python Selenium)</option>
-                    <option>Rest API Testing</option>
-                    <option>Java Full Stack Development</option>
-                    <option>MERN Java Full Stack Development</option>
-                    <option>.NET Full Stack Development</option>
-                    <option>Diploma in UI/UX Design</option>
-                  </select>
-                </Grid>
-              </Grid>
+              <div className="form-group">
+                <label htmlFor="email" className="mar">
+                  Email ID
+                </label>
+                <input type="text" id="emailRef" className="form-control" ref={emailRef} />
+              </div>
 
-              <Grid className="main1">
-                <Grid className="col-lg-4">
-                  <h4>Payment Date*</h4>
-                  <input className="inp" type="date" ref={paymentDateRef}></input>
-                </Grid>
-                <Grid className="col-lg-4">
-                  <h4>Status*</h4>
-                  <select className="inp" ref={statusRef}>
-                    <option>Paid</option>
-                    <option>Pending</option>
-                    <option>Refund</option>
-                  </select>
-                </Grid>
-                <Grid className="col-lg-4">
-                  <h4>Due Date</h4>
-                  <input className="inp" type="date" ref={dueDateRef}></input>
-                </Grid>
-              </Grid>
+              <div className="form-group">
+                <label htmlFor="mobileNo" className="marr">
+                  Mobile No
+                </label>
+                <input type="number" id="mobileRef" className="form-control" ref={mobileRef} />
+              </div>
 
-              <Grid className="main3">
-                <Grid className="col-lg-3">
-                  <h4>Sub Amount*</h4>
-                  <input className="inp1" type="number" placeholder="₹ 000" ref={subAmountRef} onChange={calculateTaxes}></input>
-                </Grid>
-                <Grid className="col-lg-3">
-                  <h4>Paid Amount*</h4>
-                  <input className="inp1" type="number" placeholder="₹ 000" ref={paidAmountRef} onChange={calculateDue}></input>
-                </Grid>
-                <Grid className="col-lg-3">
-                  <h4>Due Amount</h4>
-                  <input className="inp1" type="number" placeholder="₹ 000" ref={dueAmountRef}></input>
-                </Grid>
-                <Grid className="col-lg-3">
-                  <h4>Taxes</h4>
-                  <input className="inp1" type="number" placeholder="₹ 000" ref={taxesRef}></input>
-                </Grid>
-              </Grid>
-
-              <Grid className="bb">
-                <Grid className="main4">
-                  <h4>Total</h4>
-                  <input className="inp" type="number" placeholder="₹ 000" ref={totalAmountRef}></input>
-                </Grid>
-                <button className="btn" onClick={handleCreateInvoice}>
-                  Create Invoice
-                </button>{' '}
-                <h4 className="h4tag" id="reg-response">
-                  {responseMsg}
-                </h4>
-              </Grid>
+              <div className="form-group">
+                <label htmlFor="address" className="mar">
+                  Address
+                </label>
+                <input type="text" id="addressRef" className="form-control" ref={addressRef} />
+              </div>
             </Grid>
+          </SubCard>
+        </Grid>
+
+        {/* ==================payment status================= */}
+
+        <Grid item xs={12} md={6}>
+          <SubCard title="Payment Status">
+            <Grid container direction="column" spacing={1}>
+              <div className="form-group">
+                <label htmlFor="leadName" className="mar">
+                  Course Name
+                </label>
+                <select className="form-control" ref={courseNameRef}>
+                  <option>Select Course</option>
+                  <option>Software Testing(Java Selenium)</option>
+                  <option>Automation Testing(Python Selenium)</option>
+                  <option>Rest API Testing</option>
+                  <option>Java Full Stack Development</option>
+                  <option>MERN Java Full Stack Development</option>
+                  <option>.NET Full Stack Development</option>
+                  <option>Diploma in UI/UX Design</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="field" className="mar">
+                  Payment Date
+                </label>
+                <input className="form-control" type="date" ref={paymentDateRef}></input>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="passingYear" className="mar">
+                  Status
+                </label>
+                <select className="form-control" ref={statusRef}>
+                  <option>Paid</option>
+                  <option>Pending</option>
+                  <option>Refund</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="collegeName" className="marr">
+                  Due date
+                </label>
+                <input className="form-control" type="date" ref={dueDateRef}></input>
+              </div>
+            </Grid>
+          </SubCard>
+        </Grid>
+
+        {/* ================transaction details===================== */}
+
+        <Grid item xs={12} md={6}>
+          <SubCard title="Transactions">
+            <div className="form-group">
+              <label htmlFor="courseName" className="mar">
+                Sub Amount
+              </label>
+              <input className="form-control" type="number" placeholder="₹ 000" ref={subAmountRef} onChange={calculateTaxes}></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="mode" className="mar">
+                Paid Amount
+              </label>
+              <input className="form-control" type="number" placeholder="₹ 000" ref={paidAmountRef} onChange={calculateDue}></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="experience" className="mar">
+                Due Amount
+              </label>
+              <input className="form-control" type="number" placeholder="₹ 000" ref={dueAmountRef}></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="courseDoneFromOtherInstitute" className="mar">
+                Taxes
+              </label>
+              <input className="form-control" type="number" placeholder="₹ 000" ref={taxesRef}></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="interest" className="marr">
+                Total
+              </label>
+              <input className="form-control" type="number" placeholder="₹ 000" ref={totalAmountRef}></input>
+            </div>
+            <button className="btn" onClick={handleCreateInvoice}>
+              Create Invoice
+            </button>{' '}
+            <h4 className="h4tag" id="reg-response">
+              {responseMsg}
+            </h4>
+          </SubCard>
         </Grid>
       </Grid>
     </MainCard>
   );
 };
+
 export default Create;

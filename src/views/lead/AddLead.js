@@ -32,7 +32,7 @@ const AddLead = () => {
     setSelectedMode(event.target.value);
   };
 
-   const handleExperience = (event) => {
+  const handleExperience = (event) => {
     setSelectedExperience(event.target.value);
     if (event.target.value === 'IT') {
       setShowInstituteFields(true);
@@ -352,47 +352,49 @@ const AddLead = () => {
                   <label htmlFor="referenceName" className="marr">
                     Reference Name
                   </label>
-                  <input type="text" id="referenceName" className="form-control" onChange={(e) => setReferenceName(e.target.value)} value={referenceName} />
+                  <input
+                    type="text"
+                    id="referenceName"
+                    className="form-control"
+                    onChange={(e) => setReferenceName(e.target.value)}
+                    value={referenceName}
+                  />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="batchCode" className="marr">
                     Batch Code
                   </label>
-                  <input type="text" id="batchCode" className="form-control" onChange={(e) => setBatchCode(e.target.value)} value={batchCode} />
+                  <input
+                    type="text"
+                    id="batchCode"
+                    className="form-control"
+                    onChange={(e) => setBatchCode(e.target.value)}
+                    value={batchCode}
+                  />
                 </div>
               </div>
             )}
-           <div className="form-group">
-  <label htmlFor="status" className="marr">
-    Status
-  </label>
-  <select id="status" className="form-control clr" onChange={handlestatus}>
-    <option></option>
-    <option>Open</option>
-    <option>Deal Done</option>
-    <option>PostPone</option>
-    <option>Cancel</option>
-  </select>
-</div>
-{showReasonField && (
-  <div className="form-group">
-    <label htmlFor="reason" className="mar">
-      Reason
-    </label>
-    <input
-      type="text"
-      id="reason"
-      className="form-control"
-      onChange={(e) => setReason(e.target.value)}
-      value={reason}
-    />
-  </div>
-)}
-
-
-            
-
+            <div className="form-group">
+              <label htmlFor="status" className="marr">
+                Status
+              </label>
+              <select id="status" className="form-control clr" onChange={handlestatus}>
+                <option></option>
+                <option>Open</option>
+                <option>Deal Done</option>
+                <option>PostPone</option>
+                <option>Cancel</option>
+              </select>
+            </div>
+            {showReasonField && (
+              <div className="form-group">
+                <label htmlFor="reason" className="mar">
+                  Reason
+                </label>
+                <input type="text" id="reason" className="form-control" onChange={(e) => setReason(e.target.value)} value={reason} />
+              </div>
+            )}
             <button className="btn" onClick={handleAddLead}>
               Add Lead
             </button>{' '}

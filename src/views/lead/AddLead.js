@@ -22,7 +22,8 @@ const AddLead = () => {
   const [showReferenceFields, setShowReferenceFields] = useState(false); // State to control reference field visibility
   const [referenceName, setReferenceName] = useState('');
   const [batchCode, setBatchCode] = useState('');
-
+  const [showReasonField, setShowReasonField] = useState(false); // State to control reason field visibility
+  const [reason, setReason] = useState('');
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
   };
@@ -64,6 +65,11 @@ const AddLead = () => {
 
   const handlestatus = (event) => {
     setSelectedStatus(event.target.value);
+    if (event.target.value === 'PostPone' || event.target.value === 'Cancel') {
+      setShowReasonField(true);
+    } else {
+      setShowReasonField(false);
+    }
   };
 
   const handleAddLead = () => {
@@ -108,7 +114,8 @@ const AddLead = () => {
       approach: selectedApproach,
       referenceName,
       batchCode,
-      status: selectedStatus
+      status: selectedStatus,
+      reason
     };
 
     // Handle the response
@@ -356,18 +363,36 @@ const AddLead = () => {
                 </div>
               </div>
             )}
-            <div className="form-group">
-              <label htmlFor="status" className="marr">
-                Status
-              </label>
-              <select id="status" className="form-control clr" onChange={handlestatus}>
-                <option></option>
-                <option>Open</option>
-                <option>Deal Done</option>
-                <option>PostPone</option>
-                <option>Cancel</option>
-              </select>
-            </div>
+           <div className="form-group">
+  <label htmlFor="status" className="marr">
+    Status
+  </label>
+  <select id="status" className="form-control clr" onChange={handlestatus}>
+    <option></option>
+    <option>Open</option>
+    <option>Deal Done</option>
+    <option>PostPone</option>
+    <option>Cancel</option>
+  </select>
+</div>
+{showReasonField && (
+  <div className="form-group">
+    <label htmlFor="reason" className="mar">
+      Reason
+    </label>
+    <input
+      type="text"
+      id="reason"
+      className="form-control"
+      onChange={(e) => setReason(e.target.value)}
+      value={reason}
+    />
+  </div>
+)}
+
+
+            
+
             <button className="btn" onClick={handleAddLead}>
               Add Lead
             </button>{' '}

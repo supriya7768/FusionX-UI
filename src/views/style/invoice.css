@@ -1,347 +1,129 @@
-.inp {
-  height: 50px;
-  width: 230px;
-  border-radius: 5px;
-  background-color: whitesmoke;
-  border: #aaa;
-  text-align: center;
-}
-
-.inp1 {
-  height: 50px;
-  width: 160px;
-  border-radius: 5px;
-  background-color: whitesmoke;
-  border: #aaa;
-  text-align: center;
-}
-
-.main1 {
-  display: flex;
-  /* flex-direction: column; */
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 5px;
-  align-items: center;
-  text-align: center;
-  margin-right: 10%;
-  margin-left: 10%;
-}
-
-.main2 {
-  display: flex;
-  /* flex-direction: column; */
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 5px;
-  align-items: center;
-  text-align: center;
-  margin-right: 10%;
-  margin-left: 10%;
-}
-
-.main3 {
-  display: flex;
-  /* flex-direction: column; */
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 5px;
-  align-items: center;
-  text-align: center;
-  margin-right: 10%;
-  margin-left: 10%;
-}
-
-.main4 {
-  display: flex;
-  /* flex-direction: column; */
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
-  align-items: center;
-  text-align: center;
-  margin-right: 10%;
-  margin-left: 10%;
-  margin-top: 20px;
-}
-
-.leadaddress {
-  text-align: center;
-  width: 285%;
-}
-
-.add {
-  height: 50px;
-  width: 285%;
-  border-radius: 5px;
-  background-color: whitesmoke;
-  border: #aaa;
-  text-align: center;
-  /* margin-right: 10%; */
-  /* margin-left: 10%; */
-}
-
-@media screen and (max-width: 768px) {
-  .add {
-    width: 280px;
-    margin: 0;
-    margin-top: 20px;
-  }
-
-  .leadaddress {
-    width: 280px;
-    margin: 0;
-    margin-top: 20px;
-  }
-
-  .inp {
-    width: 280px;
-  }
-
-  .inp1 {
-    width: 0px;
-  }
-}
-
-.head {
-  text-align: center;
-}
-
-/* .btn {
-  font-size: 20px;
-  margin-top: 20px;
-  margin-left: 20%;
-  margin-right: 10%;
-  padding: 0px 25px;
-  width: max-content;
-  background-color: whitesmoke;
-  border-radius: 5px;
-  cursor: pointer;
-  height: 50px;
-} */
-/* .btn:hover {
-  background-color: #aaa; /* Change this to your desired hover button color */
- */
-
-.bb {
-  justify-content: center;
-  /* display: flex; */
-  align-content: center;
-}
-
- /* .button-container {
-  display: grid;
-  grid-template-columns: auto auto;  Display button and h4 in separate columns 
-  gap: 10px; Add some spacing between button and h4 
-  align-items: center; Vertically center the items  */
 
 
-/* Hide the arrow buttons in number input fields */
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Set a fixed width for the input fields */
-.inp1 {
-  width: 100%;
-}
-
-.h4tag {
-  display: inline;
-  color: rgb(237, 49, 49);
-  font-size: 26px;
-  font-family: 'Times New Roman', Times, serif;
-  width: 40%;
-}
-
-@media (max-width: 768px) {
-  .h4tag {
-    display: block;
-    width: 280px;
-    margin-left: 10%;
-    text-align: center;
-    margin-top: 5%;
-    line-height: 30px;
-  }
-
-  .btn {
-    margin-left: 10%;
-    display: block;
-    width: 280px;
-    margin-top: 5%;
-  }
-}
-
-.List {
-  text-align: center;
-}
-
-#nvd {
-  border: solid blue;
-  color: blue;
-  font-size: 18px;
-  font-weight: px;
-  width: 150px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: white;
-}
-
-#anewinvoices {
-  background-image: linear-gradient(to right, blue, pink);
-  color: white;
-  padding: 15px;
-  border-radius: 5px;
-  width: 150px;
-}
-
-nav {
-  height: 70px;
-  display: grid;
-  justify-content: space-between;
-  box-shadow: aquamarine;
-  grid-template-columns: 150px 160px;
-}
-
-.menu-button {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  position: relative;
-}
-
+/* Style for the dropdown button and content */
 .dropdown {
   position: relative;
   display: inline-block;
+  user-select: none;
 }
 
-/* Style the dropdown button */
-.dropbtn {
-  background-color: white;
-  color: black;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-
-}
-
-/* Style the dropdown content (hidden by default) */
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  text-align: center;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
-}
-
-/* Style the dropdown content links */
-.dropdown-content a {
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  color: #333;
-}
-
-/* Style the dropdown content links on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* Show the dropdown content when the button is hovered over */
-.dropdown:hover .dropdown-content {
-  display: block;
-  left: 50%; /* Center the dropdown content relative to the button */
-  transform: translateX(-50%);
-}
-
-.menu-button::after {
-  content: '\u2026'; /* Unicode character for ellipsis (three dots) */
-  font-size: 24px;
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  transform: translateY(-50%);
-}
-.nav-item dropdown {
-  margin-right: 30px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-th, 
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border-radius: 4px;
+  padding: 8px 0;
   text-align: center;
 }
 
-th {
-  background-color: #f2f2f2;
+.inp {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4375em;
+  font-family: Roboto, sans-serif;
+  color: rgb(54, 65, 82);
+  box-sizing: border-box;
+  cursor: text;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding-left: 14px;
+  background: rgb(248, 250, 252);
+  border-radius: 8px;
+  margin-left: auto; /* Move to the right corner */
 }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 
-tr:hover {
-  background-color: #ddd;
-}
-
-h1 {
-  text-align: center;
+/* Style for the navigation links */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
 }
 
 .navbar a {
-  float: left; /* Float the links to the left */
-  display: block;
-  color: black; /* Text color */
-  text-align: center;
-  padding: 14px 16px; /* Padding for the links */
-  text-decoration: none; /* Remove underline */
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 10px;
+  cursor: pointer;
 }
 
-/* Change the color of links on hover */
-.navbar a:hover {
-  background-color: #ddd; /* Background color on hover */
-  color: black; /* Text color on hover */
+/* Style for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  border: 1px solid #ccc;
 }
 
-.navbar {
-  justify-content: space-between;
-  overflow: hidden;
-  display: flex;
+table th {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  text-align: left;
+  padding: 8px;
+  cursor: pointer;
 }
 
-.dropdownn-button {
-  font-size: 16px; /* Adjust the font size as needed */
-  background: none;
+table th .dropdown {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+table th .dropdownn-button {
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s; /* Add a smooth transition effect */
-  content: "▼"; /* Display a down arrow character */
 }
 
-/* Style for the ascending and descending arrows */
-.dropdownn-button.ascending::after {
-  content: "▼"; /* Display a down arrow character for ascending */
-  transform: rotate(0deg); /* Default state - no rotation */
+table th .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px;
+  padding: 8px 0;
+  text-align: center;
 }
 
-.dropdownn-button.descending::after {
-  content: "▼"; /* Display a down arrow character for descending */
-  transform: rotate(180deg); /* Rotated 180 degrees (upside-down arrow) */
+table th:hover .dropdown-content {
+  display: block;
+}
+
+table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+/* Style for the dropdown button in the table cell */
+table td .dropdown-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the action links in the table cell */
+table td .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px;
+  padding: 8px 0;
+  text-align: center;
+}
+
+table td:hover .dropdown-content {
+  display: block;
 }
 
 
-/* ================================================================== */
+
+/* ===============================Create.js=================================== */
 
 .container {
   display: flex;

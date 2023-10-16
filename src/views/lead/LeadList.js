@@ -1,203 +1,152 @@
-import React from 'react';
-import { Grid } from '@mui/material';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-// project imports
-import SubCard from 'ui-component/cards/SubCard';
-import MainCard from 'ui-component/cards/MainCard';
-import { gridSpacing } from 'store/constant';
-import '../style/lead.css';
+function createData(name, course, mobile, email, address, status) {
+  return {
+    name,
+    course,
+    mobile,
+    email,
+    address,
+    status,
+    history: [
+      {
+        degree: 'B.E',
+        field: 'Civil',
+        passingYear: 3,
+        collegeName: 'RCPIT',
+        expierience: 0,
+        attendedBy: 'Shakila'
+      }
+    ]
+  };
+}
 
-const LeadList = () => {
+function Row(props) {
+  const { row } = props;
+  const [open, setOpen] = React.useState(false);
+
   return (
-    <MainCard title="Lead List">
-      <Grid container spacing={gridSpacing}>
-        <Grid item xs={12} md={6}>
-          <SubCard title="Personal Information">
-            <Grid container direction="column" spacing={1}>
-              <div className="form-group">
-                <label htmlFor="leadName" className="mar">
-                  Lead Name
-                </label>
-                <input type="text" id="leadName" className="form-control" name="name" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="email" className="mar">
-                  Email ID
-                </label>
-                <input type="text" id="email" className="form-control" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="collegeName" className="mar">
-                  College Name
-                </label>
-                <input type="text" id="collegeName" className="form-control" />
-              </div>
-            </Grid>
-          </SubCard>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <SubCard title="Course and Preferences">
-            <div className="form-group">
-              <label htmlFor="courseName" className="mar">
-                Course Name
-              </label>
-              <select id="courseName" className="form-control">
-                <option></option>
-                <option>Software Testing (Java Selenium)</option>
-                <option>Automation Testing (Python Selenium)</option>
-                <option>React API Testing </option>
-                <option>Java Full Stack Development</option>
-                <option>.NET Full Stack Development</option>
-                <option>Diploma in UI/UX Design</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="mode" className="mar">
-                Mode
-              </label>
-              <select id="mode" className="form-control">
-                <option></option>
-                <option>Online</option>
-                <option>Offline</option>
-                <option>Hybrid</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="experience" className="mar">
-                Experience
-              </label>
-              <select id="experience" className="form-control">
-                <option></option>
-                <option>IT</option>
-                <option>Non IT</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="courseDoneFromOtherInstitute" className="mar">
-                Course Done From Other Institute
-              </label>
-              <select id="courseDoneFromOtherInstitute" className="form-control">
-                <option></option>
-                <option>Yes</option>
-                <option>No</option>
-              </select>
-            </div>
-
-            <div className="courseD">
-              <div className="form-group">
-                <label htmlFor="instituteName" className="mar">
-                  Institute Name
-                </label>
-                <input type="text" id="instituteName" className="form-control" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="reasonForChanging" className="mar">
-                  Reason For Changing
-                </label>
-                <input type="text" id="reasonForChanging" className="form-control" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="fees" className="mar">
-                  Fees
-                </label>
-                <input type="number" id="fees" className="form-control" />
-              </div>
-            </div>
-          </SubCard>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <SubCard title="Course and Preferences">
-            <div className="right">
-              <div className="form-group">
-                <label htmlFor="mobileNo" className="marr">
-                  Mobile No
-                </label>
-                <input type="number" id="mobileNo" className="form-control clr" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="qualification" className="marr">
-                  Qualification
-                </label>
-                <input type="text" id="qualification" className="form-control clr" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="passingYear" className="marr">
-                  Passing Year
-                </label>
-                <input type="number" id="passingYear" className="form-control clr" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="interest" className="marr">
-                  Interest
-                </label>
-                <select id="interest" className="form-control clr">
-                  <option></option>
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="approach" className="marr">
-                  Approach
-                </label>
-                <select id="approach" className="form-control clr">
-                  <option></option>
-                  <option>Instagram</option>
-                  <option>Facebook</option>
-                  <option>Google</option>
-                  <option>Search near by area</option>
-                  <option>Reference</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div className="ref">
-                <div className="form-group">
-                  <label htmlFor="referenceName" className="marr">
-                    Reference Name
-                  </label>
-                  <input type="text" id="referenceName" className="form-control" />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="batchCode" className="marr">
-                    Batch Code
-                  </label>
-                  <input type="text" id="batchCode" className="form-control" />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="status" className="marr">
-                  Status
-                </label>
-                <select id="status" className="form-control clr">
-                  <option></option>
-                  <option>Open</option>
-                  <option>Deal Done</option>
-                  <option>PostPone</option>
-                  <option>Cancel</option>
-                </select>
-              </div>
-            </div>
-            <button className="btnn">Add Lead</button>
-          </SubCard>
-        </Grid>
-      </Grid>
-    </MainCard>
+    <React.Fragment>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <TableCell>
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {row.name}
+        </TableCell>
+        <TableCell align="right">{row.course}</TableCell>
+        <TableCell align="right">{row.mobile}</TableCell>
+        <TableCell align="right">{row.email}</TableCell>
+        <TableCell align="right">{row.address}</TableCell>
+        <TableCell align="right">{row.status}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                Details
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Degree</TableCell>
+                    <TableCell align="left">Field</TableCell>
+                    <TableCell align="left">Passing Year</TableCell>
+                    <TableCell align="left">College Name</TableCell>
+                    <TableCell align="left">Expierience</TableCell>
+                    <TableCell align="left">Attended By</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row.history.map((historyRow) => (
+                    <TableRow key={historyRow.degree}>
+                      <TableCell component="th" scope="row">
+                        {historyRow.degree}
+                      </TableCell>
+                      <TableCell>{historyRow.field}</TableCell>
+                      <TableCell align="left">{historyRow.passingYear}</TableCell>
+                      <TableCell align="left">{historyRow.collegeName}</TableCell>
+                      <TableCell align="left">{historyRow.expierience}</TableCell>
+                      <TableCell align="left">{historyRow.attendedBy}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
   );
+}
+
+Row.propTypes = {
+  row: PropTypes.shape({
+    course: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    mobile: PropTypes.number.isRequired,
+    history: PropTypes.arrayOf(
+      PropTypes.shape({
+        field: PropTypes.string.isRequired,
+        collegeName: PropTypes.string.isRequired,
+        passingYear: PropTypes.number.isRequired,
+        expierience: PropTypes.number.isRequired,
+        attendedBy: PropTypes.string.isRequired,
+        degree: PropTypes.string.isRequired
+      })
+    ).isRequired,
+    name: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired
+  }).isRequired
 };
 
-export default LeadList;
+const rows = [
+  createData('Supriya Mahajan', 'Java Full Stack Development', 123456, 'mahajansupriya@gmail.com', 'Jalgaon', 'Open'),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
+  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
+  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
+  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5)
+];
+
+export default function CollapsibleTable() {
+  return (
+    <TableContainer component={Paper}>
+      <Table aria-label="collapsible table">
+        <TableHead>
+          <TableRow>
+            <TableCell />
+            <TableCell>Lead Name</TableCell>
+            <TableCell align="right">Course Intrested</TableCell>
+            <TableCell align="left">Mobile No</TableCell>
+            <TableCell align="right">Email ID</TableCell>
+            <TableCell align="left">Address</TableCell>
+            <TableCell align="left">Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <Row key={row.name} row={row} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}

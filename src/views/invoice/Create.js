@@ -10,16 +10,6 @@ import { gridSpacing } from 'store/constant';
 
 // import { Link } from 'react-router-dom';
 import '../style/invoice.css'; // Import your project's CSS file
-// material-ui
-// import { useTheme } from '@mui/material/styles';
-// import { Gridider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
-
-// project imports
-// import AuthWrapper1 from '../pages/authentication/AuthWrapper1';
-// import AuthCardWrapper from '../pages/authentication/AuthCardWrapper';
-// import AuthCreateInvoice from '../pages/authentication/auth-forms/AuthCreateInvoice';
-// import Logo from 'ui-component/Logo';
-// import AuthFooter from 'ui-component/cards/AuthFooter';
 
 const Create = () => {
   const nameRef = useRef(null);
@@ -37,7 +27,7 @@ const Create = () => {
   const totalAmountRef = useRef(null);
 
   const [responseMsg, setResponseMsg] = useState('');
-  const [showReasonField, setShowReasonField] = useState(false);
+  const [showDueField, setShowDueField] = useState(false);
 
   const calculateTaxes = () => {
     const subAmountValue = subAmountRef.current.value;
@@ -119,7 +109,7 @@ const Create = () => {
     const courseName = courseNameRef.current.value;
     const paymentDate = paymentDateRef.current.value;
     const status = statusRef.current.value;
-    const dueDate = dueDateRef.current.value;
+    // const dueDate = dueDateRef.current.value;
     const subAmount = subAmountRef.current.value;
     const paidAmount = paidAmountRef.current.value;
     const dueAmount = dueAmountRef.current.value;
@@ -139,6 +129,9 @@ const Create = () => {
     if (!validateInputs()) {
       return;
     }
+
+    // Check if the Due Date field is visible (based on the showDueField state)
+    const dueDate = showDueField ? dueDateRef.current.value : '';
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
@@ -213,7 +206,8 @@ const Create = () => {
 
   const handleStatusChange = () => {
     const selectedStatus = statusRef.current.value;
-    setShowReasonField(selectedStatus === 'Pending'); // Show "Due Date" if status is "Pending"
+    // console.log('Selected Status:', selectedStatus); // Debugging line
+    setShowDueField(selectedStatus === 'Pending'); // Show "Due Date" if status is "Pending"
   };
 
   return (
@@ -295,9 +289,9 @@ const Create = () => {
               </div>
 
               <div className="form-group">
-                {showReasonField && (
+                {showDueField && (
                   <>
-                    <label htmlFor="collegeName" className="marr">
+                    <label htmlFor="dueDate" className="marr">
                       Due date
                     </label>
                     <input className="form-control" type="date" ref={dueDateRef} />

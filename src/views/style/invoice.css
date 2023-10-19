@@ -217,6 +217,11 @@ input[type='number']::-webkit-outer-spin-button {
   text-decoration: none; /* Remove underlines from links */
   color: #000; /* Set the text color (you can adjust the color) */
   padding: 5px 0; /* Add some vertical spacing between links */
+  background: none;
+  text-align: center;
+  border: none;
+  margin-left: auto;
+  margin-bottom: auto;
 }
 
 .dropdown-link:hover {

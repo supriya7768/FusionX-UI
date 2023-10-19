@@ -15,7 +15,7 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialI
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 const AuthCreateInvoice = Loadable(lazy(() => import('views/invoice/Create')));
 const AuthListInvoice = Loadable(lazy(() => import('views/invoice/List')));
-const AuthListDeleted = Loadable(lazy(() => import('views/invoice/Listdeleted')));
+const AuthListDeleted = Loadable(lazy(() => import('views/invoice/List')));
 const AuthAddLead = Loadable(lazy(() => import('views/lead/AddLead')));
 const AuthLeadList = Loadable(lazy(() => import('views/lead/LeadList')));
 // const SamplePage = Loadable(lazy(() => import('views/sample-page')));

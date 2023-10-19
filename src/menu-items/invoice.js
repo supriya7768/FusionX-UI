@@ -24,14 +24,14 @@ const invoice = {
       icon: icons.IconReportMoney,
       breadcrumbs: false
     },
-    {
-      id: 'listdeleted',
-      title: 'List Deleted',
-      type: 'item',
-      url: '/invoice/Listdeleted',
-      icon: icons.IconZoomMoney,
-      breadcrumbs: false
-    },
+    // {
+    //   id: 'listdeleted',
+    //   title: 'List Deleted',
+    //   type: 'item',
+    //   url: '/invoice/Listdeleted',
+    //   icon: icons.IconZoomMoney,
+    //   breadcrumbs: false
+    // },
     {
       id: 'listinvoice',
       title: 'Invoice List',

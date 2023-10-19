@@ -1,158 +1,261 @@
-import * as React from 'react';
-// import React, { useRef, useState } from 'react';
-// import { Grid } from '@mui/material';
-// import MainCard from 'ui-component/cards/MainCard';
-// import { gridSpacing } from 'store/constant';
+import React, { useState, useEffect } from 'react';
+import { Grid } from '@mui/material';
 
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import MainCard from 'ui-component/cards/MainCard';
+import { gridSpacing } from 'store/constant';
+import '../style/invoice.css';
 
-function createData(invoiceTo, invoiceId, courseName, dueAmount, dueDate, status, action) {
-  return {
-    element: invoiceTo,
-    invoiceId,
-    courseName,
-    dueAmount,
-    dueDate,
-    status,
-    action,
-    history: [
-      {
-        paymentDate: '2020-01-05',
-        mode: 'Cash',
-        amountPaid: 10000,
-        remaining: 20000
-      },
-      {
-        paymentDate: '2020-01-05',
-        mode: 'Cheque',
-        amountPaid: 10000,
-        remaining: 10000
-      }
-    ]
+const List = () => {
+  const [invoices, setInvoices] = useState([]);
+  const [sortField, setSortField] = useState(null);
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [dropdownNames, setDropdownNames] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState('All');
+  const [expandedInvoiceId, setExpandedInvoiceId] = useState(null);
+  const [overdueInvoices, setOverdueInvoices] = useState([]); // State to hold overdue invoices
+
+  useEffect(() => {
+    // Fetch data from your API when the component mounts
+    fetch('http://localhost:8080/getAllInvoices')
+      .then((response) => response.json())
+      .then((data) => {
+        setInvoices(data);
+        // Extract and set the list of names for the dropdown
+        const names = data.map((invoice) => invoice.name);
+        setDropdownNames(names);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleSort = (field) => {
+    if (field === sortField) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
   };
-}
 
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const displayDropdown = (names) => {
+    return (
+      <div className={`dropdown-content ${isDropdownVisible ? 'visible' : ''}`}>
+        {names.map((name) => (
+          <a key={name} href="#">
+            {name}
+          </a>
+        ))}
+      </div>
+    );
+  };
+
+  const handleShowAllInvoices = () => {
+    setSelectedStatus('All');
+  };
+
+  const handleShowOverdueInvoices = () => {
+    const currentDate = new Date();
+
+    // Filter and set overdue invoices with status "Pending"
+    const overduePending = invoices.filter((invoice) => {
+      const dueDate = new Date(invoice.dueDate);
+      return dueDate > currentDate && invoice.status === 'Pending';
+    });
+
+    setOverdueInvoices(overduePending);
+    setSelectedStatus('Overdue'); // Update selected status to 'Overdue'
+  };
+
+  const filterInvoicesByStatus = () => {
+    if (selectedStatus === 'All') {
+      return invoices; // Return all invoices
+    } else if (selectedStatus === 'Overdue') {
+      return overdueInvoices; // Return overdue invoices
+    } else {
+      return invoices.filter((invoice) => invoice.status === selectedStatus);
+    }
+  };
+
+  const sortedInvoices = [...filterInvoicesByStatus()].sort((a, b) => {
+    if (sortField) {
+      if (sortField === 'dueDate') {
+        const valueA = a[sortField] || '';
+        const valueB = b[sortField] || '';
+
+        if (valueA < valueB) {
+          return sortDirection === 'asc' ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return sortDirection === 'asc' ? 1 : -1;
+        }
+      } else {
+        if (a[sortField] < b[sortField]) {
+          return sortDirection === 'asc' ? -1 : 1;
+        }
+        if (a[sortField] > b[sortField]) {
+          return sortDirection === 'asc' ? 1 : -1;
+        }
+      }
+    }
+    return 0;
+  });
+
+  const toggleInvoiceDetails = (invoiceId) => {
+    // Toggle the expanded invoice
+    if (expandedInvoiceId === invoiceId) {
+      setExpandedInvoiceId(null);
+    } else {
+      setExpandedInvoiceId(invoiceId);
+    }
+  };
 
   return (
-    <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.invoiceTo}
-        </TableCell>
-        <TableCell align="right">{row.invoiceId}</TableCell>
-        <TableCell align="right">{row.courseName}</TableCell>
-        <TableCell align="right">{row.dueAmount}</TableCell>
-        <TableCell align="right">{row.dueDate}</TableCell>
-        <TableCell align="right">{row.status}</TableCell>
-        <TableCell align="right">{row.action}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell> Payment Date</TableCell>
-                    <TableCell>Mode</TableCell>
-                    <TableCell align="right">Amount paid</TableCell>
-                    <TableCell align="right">Remaining</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.paymentDate}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.paymentDate}
-                      </TableCell>
-                      <TableCell>{historyRow.mode}</TableCell>
-                      <TableCell align="right">{historyRow.amountPaid}</TableCell>
-                      <TableCell align="right">{Math.round(historyRow.amountPaid * row.dueAmount * 100) / 100}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
+    <MainCard title="Invoice List">
+      <Grid container spacing={gridSpacing}>
+        <Grid item xs={12}>
+          <div>
+            <div className="dropdown" onMouseEnter={() => setIsDropdownVisible(true)} onMouseLeave={() => setIsDropdownVisible(false)}>
+              <button className="dropbtn">Select User</button>
+              {isDropdownVisible && displayDropdown([...new Set(dropdownNames)])}
+            </div>
+            <input className="inp" type="text" placeholder="Enter Lead Name"></input>
+            <div className="navbar">
+              <div>
+                <a href="#" onClick={handleShowAllInvoices}>
+                  All Invoices
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Paid')}>
+                  Paid
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Pending')}>
+                  Pending
+                </a>
+                <a href="#" onClick={handleShowOverdueInvoices}>
+                  Overdue
+                </a>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th className="centered-cell">Invoice Id</th>
+                  <th onClick={() => handleSort('name')} className="centered-cell">
+                    <span>Invoice to</span>
+                    <div className="dropdown">
+                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('name')}>
+                        {sortDirection === 'asc' ? '' : ''}
+                      </button>
+                    </div>
+                  </th>
+                  <th onClick={() => handleSort('courseName')} className="centered-cell">
+                    <span>Course Name</span>
+                    <div className="dropdown">
+                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('courseName')}>
+                        {sortDirection === 'asc' ? '' : ''}
+                      </button>
+                    </div>
+                  </th>
+                  <th onClick={() => handleSort('dueAmount')} className="centered-cell">
+                    <span>Due Amount</span>
+                    <div className="dropdown">
+                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('dueAmount')}>
+                        {sortDirection === 'asc' ? '' : ''}
+                      </button>
+                    </div>
+                  </th>
+                  <th onClick={() => handleSort('dueDate')} className="centered-cell">
+                    <span>Due Date</span>
+                    <div className="dropdown">
+                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('dueDate')}>
+                        {sortDirection === 'asc' ? '' : ''}
+                      </button>
+                    </div>
+                  </th>
+                  <th onClick={() => handleSort('status')} className="centered-cell">
+                    <span>Status</span>
+                    <div className="dropdown">
+                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('status')}>
+                        {sortDirection === 'asc' ? '' : ''}
+                      </button>
+                    </div>
+                  </th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedInvoices.map((invoice) => (
+                  <React.Fragment key={invoice.id}>
+                    <tr className={selectedStatus === 'Overdue' && new Date(invoice.dueDate) < currentDate ? 'overdue' : ''}>
+                      <td className="centered-cell">
+                        <button className="details-button" onClick={() => toggleInvoiceDetails(invoice.invoiceId)}>
+                          {expandedInvoiceId === invoice.invoiceId ? invoice.invoiceId : invoice.invoiceId}
+                        </button>
+                        {/* {invoice.invoiceId} */}
+                      </td>
+                      <td className="centered-cell">{invoice.name}</td>
+                      <td className="centered-cell">{invoice.courseName}</td>
+                      <td className="centered-cell">{invoice.dueAmount}</td>
+                      <td className="centered-cell">{invoice.dueDate}</td>
+                      <td className="centered-cell">{invoice.status}</td>
+                      <td className="centered-cell">
+                        <div className="dropdown">
+                          <button className="dropdownn-button">&#10247;</button>
+                          <div className="dropdown-content">
+                            <a href="#" className="dropdown-link">
+                              Edit
+                            </a>
+                            <a href="#" className="dropdown-link">
+                              Delete
+                            </a>
+                            <button className="dropdown-link">Download</button>
+                            {/* <a href="#" className="dropdown-link">
+                              Download
+                            </a> */}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    {expandedInvoiceId === invoice.invoiceId && (
+                      <tr>
+                        <td colSpan="7">
+                          <table>
+                            <thead>
+                              <tr>
+                                <th className="centered-cell">Invoice Id</th>
+                                <th className="centered-cell">Mobile</th>
+                                <th className="centered-cell">Date</th>
+                                <th className="centered-cell">Total Amount</th>
+                                <th className="centered-cell">Paid Amount</th>
+                                <th className="centered-cell">Due Amount</th>
+                                <th className="centered-cell">Due Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td className="centered-cell">{invoice.invoiceId}</td>
+                                <td className="centered-cell">{invoice.mobile}</td>
+                                <td className="centered-cell">{invoice.invoiceDate}</td>
+                                <td className="centered-cell">{invoice.totalAmount}</td>
+                                <td className="centered-cell">{invoice.paidAmount}</td>
+                                <td className="centered-cell">{invoice.dueAmount}</td>
+                                <td className="centered-cell">{invoice.dueDate}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Grid>
+      </Grid>
+    </MainCard>
   );
-}
-
-Row.propTypes = {
-  row: PropTypes.shape({
-    invoiceId: PropTypes.number.isRequired,
-    dueAmount: PropTypes.number.isRequired,
-    courseName: PropTypes.string.isRequired,
-    action: PropTypes.string.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired
-      })
-    ).isRequired,
-    invoiceTo: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    dueDate: PropTypes.number.isRequired
-  }).isRequired
 };
 
-const rows = [
-  createData('Supriya Mahajan', 1, 'Java Full stack', 10000, 12, 8.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5)
-];
-
-export default function CollapsibleTable() {
-  return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Invoice to</TableCell>
-            <TableCell align="right">Invoice ID</TableCell>
-            <TableCell align="right">Course Name</TableCell>
-            <TableCell align="right">Due Amount</TableCell>
-            <TableCell align="right">Due Date</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.invoiceTo} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
+export default List;

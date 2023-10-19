@@ -104,29 +104,29 @@ const AddLead = () => {
     const status = statusRef.current.value;
 
     // // Check if any of the required fields are empty
-    // if (
-    //   !leadName ||
-    //   !email ||
-    //   !mobileNo ||
-    //   !address ||
-    //   !degree ||
-    //   !field ||
-    //   !passingYear ||
-    //   !collegeName ||
-    //   !courseName ||
-    //   !mode ||
-    //   !experience ||
-    //   !courseDoneFromOtherInstitute ||
-    //   !interest ||
-    //   !approach ||
-    //   !status
-    // ) {
-    //   setResponseMsg('Please fill in all required fields.');
-    //   setTimeout(() => {
-    //     setResponseMsg('');
-    //   }, 5000); // 5 seconds in milliseconds
-    //   return; // Exit the function if any field is empty
-    // }
+    if (
+      !leadName ||
+      !email ||
+      !mobileNo ||
+      !address ||
+      !degree ||
+      !field ||
+      !passingYear ||
+      !collegeName ||
+      !courseName ||
+      !mode ||
+      !experience ||
+      !courseDoneFromOtherInstitute ||
+      !interest ||
+      !approach ||
+      !status
+    ) {
+      setResponseMsg('Please fill in all required fields.');
+      setTimeout(() => {
+        setResponseMsg('');
+      }, 5000); // 5 seconds in milliseconds
+      return; // Exit the function if any field is empty
+    }
 
     // Validate email and mobile number inputs
     if (!validateInputs()) {

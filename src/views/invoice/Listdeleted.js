@@ -12,7 +12,8 @@ const Listdeleted = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [dropdownNames, setDropdownNames] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('All');
-  // const [filteredInvoices, setFilteredInvoices] = useState([]);
+  const [expandedInvoiceId, setExpandedInvoiceId] = useState(null);
+  const [overdueInvoices, setOverdueInvoices] = useState([]); // State to hold overdue invoices
 
   useEffect(() => {
     // Fetch data from your API when the component mounts
@@ -52,12 +53,26 @@ const Listdeleted = () => {
 
   const handleShowAllInvoices = () => {
     setSelectedStatus('All');
-    // You can also reset the selectedName here if needed.
+  };
+
+  const handleShowOverdueInvoices = () => {
+    const currentDate = new Date();
+
+    // Filter and set overdue invoices with status "Pending"
+    const overduePending = invoices.filter((invoice) => {
+      const dueDate = new Date(invoice.dueDate);
+      return dueDate > currentDate && invoice.status === 'Pending';
+    });
+
+    setOverdueInvoices(overduePending);
+    setSelectedStatus('Overdue'); // Update selected status to 'Overdue'
   };
 
   const filterInvoicesByStatus = () => {
     if (selectedStatus === 'All') {
       return invoices; // Return all invoices
+    } else if (selectedStatus === 'Overdue') {
+      return overdueInvoices; // Return overdue invoices
     } else {
       return invoices.filter((invoice) => invoice.status === selectedStatus);
     }
@@ -66,7 +81,6 @@ const Listdeleted = () => {
   const sortedInvoices = [...filterInvoicesByStatus()].sort((a, b) => {
     if (sortField) {
       if (sortField === 'dueDate') {
-        // Handle sorting for the 'dueDate' field with empty or null values
         const valueA = a[sortField] || '';
         const valueB = b[sortField] || '';
 
@@ -77,7 +91,6 @@ const Listdeleted = () => {
           return sortDirection === 'asc' ? 1 : -1;
         }
       } else {
-        // Handle sorting for other fields
         if (a[sortField] < b[sortField]) {
           return sortDirection === 'asc' ? -1 : 1;
         }
@@ -89,53 +102,27 @@ const Listdeleted = () => {
     return 0;
   });
 
-  // const calculateTotals = () => {
-  //   let totalQuantity = 0;
-  //   let totalAmount = 0;
-
-  //   invoices.forEach((invoice) => {
-  //     // Check if 'quantity' is a valid number
-  //     const quantity = parseFloat(invoice.quantity);
-
-  //     if (!isNaN(quantity)) {
-  //       totalQuantity += quantity;
-  //     }
-
-  //     // Ensure 'totalAmount' is a valid number as well
-  //     const amount = parseFloat(invoice.totalAmount);
-
-  //     if (!isNaN(amount)) {
-  //       totalAmount += amount;
-  //     }
-  //   });
-
-  //   return { totalQuantity, totalAmount };
-  // };
-
-  // const { totalQuantity, totalAmount } = calculateTotals();
+  const toggleInvoiceDetails = (invoiceId) => {
+    // Toggle the expanded invoice
+    if (expandedInvoiceId === invoiceId) {
+      setExpandedInvoiceId(null);
+    } else {
+      setExpandedInvoiceId(invoiceId);
+    }
+  };
 
   return (
     <MainCard title="Invoice List">
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
           <div>
-            {/* <nav> */}
             <div className="dropdown" onMouseEnter={() => setIsDropdownVisible(true)} onMouseLeave={() => setIsDropdownVisible(false)}>
               <button className="dropbtn">Select User</button>
               {isDropdownVisible && displayDropdown([...new Set(dropdownNames)])}
             </div>
             <input className="inp" type="text" placeholder="Enter Lead Name"></input>
-            {/* <button id="nvd">Generate report</button> */}
-            {/* </nav> */}
             <div className="navbar">
               <div>
-                {/* <div id="newinvoices">
-                  <a id="anewinvoices" href="">
-                    <i className="material-icons"></i>All Invoices
-                    <div>Total Quantity: {totalQuantity}</div>
-                    <div>₹ {totalAmount}</div>
-                  </a>
-                </div> */}
                 <a href="#" onClick={handleShowAllInvoices}>
                   All Invoices
                 </a>
@@ -145,73 +132,52 @@ const Listdeleted = () => {
                 <a href="#" onClick={() => setSelectedStatus('Pending')}>
                   Pending
                 </a>
-                <a href="#">Overdue</a>
-                {/* <a href="#">Recurring</a>
-                <a href="#">Cancelled</a> */}
-              </div>
-              {/* <div id="newinvoices">
-                <a id="anewinvoices" href="">
-                  <i className="material-icons"></i>New invoice
+                <a href="#" onClick={handleShowOverdueInvoices}>
+                  Overdue
                 </a>
-              </div> */}
+              </div>
             </div>
             <table>
               <thead>
                 <tr>
-                  <th>Invoice Id</th>
-                  <th onClick={() => handleSort('name')}>
+                  <th className="centered-cell">Invoice Id</th>
+                  <th onClick={() => handleSort('name')} className="centered-cell">
                     <span>Invoice to</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('name')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
+                        {sortDirection === 'asc' ? '' : ''}
                       </button>
                     </div>
                   </th>
-                  <th onClick={() => handleSort('courseName')}>
+                  <th onClick={() => handleSort('courseName')} className="centered-cell">
                     <span>Course Name</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('courseName')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
+                        {sortDirection === 'asc' ? '' : ''}
                       </button>
                     </div>
                   </th>
-                  <th onClick={() => handleSort('invoiceDate')}>
-                    <span>Created on</span>
-                    <div className="dropdown">
-                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('invoiceDate')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
-                      </button>
-                    </div>
-                  </th>
-                  <th onClick={() => handleSort('totalAmount')}>
-                    <span>Total Amount</span>
-                    <div className="dropdown">
-                      <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('totalAmount')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
-                      </button>
-                    </div>
-                  </th>
-                  <th onClick={() => handleSort('dueAmount')}>
+                  <th onClick={() => handleSort('dueAmount')} className="centered-cell">
                     <span>Due Amount</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('dueAmount')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
+                        {sortDirection === 'asc' ? '' : ''}
                       </button>
                     </div>
                   </th>
-                  <th onClick={() => handleSort('dueDate')}>
+                  <th onClick={() => handleSort('dueDate')} className="centered-cell">
                     <span>Due Date</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('dueDate')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
+                        {sortDirection === 'asc' ? '' : ''}
                       </button>
                     </div>
                   </th>
-                  <th onClick={() => handleSort('status')}>
+                  <th onClick={() => handleSort('status')} className="centered-cell">
                     <span>Status</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('status')}>
-                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
+                        {sortDirection === 'asc' ? '' : ''}
                       </button>
                     </div>
                   </th>
@@ -220,25 +186,68 @@ const Listdeleted = () => {
               </thead>
               <tbody>
                 {sortedInvoices.map((invoice) => (
-                  <tr key={invoice.id}>
-                    <td>{invoice.invoiceId}</td>
-                    <td>{invoice.name}</td>
-                    <td>{invoice.courseName}</td>
-                    <td>{invoice.invoiceDate}</td>
-                    <td>{invoice.totalAmount}</td>
-                    <td>{invoice.dueAmount}</td>
-                    <td>{invoice.dueDate}</td>
-                    <td>{invoice.status}</td>
-                    <td>
-                      <div className="dropdown">
-                        <button className="dropdown-button">&#10247;</button>
-                        <div className="dropdown-content">
-                          <a href="#">Edit</a>
-                          <a href="#">Delete</a>
+                  <React.Fragment key={invoice.id}>
+                    <tr className={selectedStatus === 'Overdue' && new Date(invoice.dueDate) < currentDate ? 'overdue' : ''}>
+                      <td className="centered-cell">
+                        <button className="details-button" onClick={() => toggleInvoiceDetails(invoice.invoiceId)}>
+                          {expandedInvoiceId === invoice.invoiceId ? invoice.invoiceId : invoice.invoiceId}
+                        </button>
+                        {/* {invoice.invoiceId} */}
+                      </td>
+                      <td className="centered-cell">{invoice.name}</td>
+                      <td className="centered-cell">{invoice.courseName}</td>
+                      <td className="centered-cell">{invoice.dueAmount}</td>
+                      <td className="centered-cell">{invoice.dueDate}</td>
+                      <td className="centered-cell">{invoice.status}</td>
+                      <td className="centered-cell">
+                        <div className="dropdown">
+                          <button className="dropdownn-button">&#10247;</button>
+                          <div className="dropdown-content">
+                            <a href="#" className="dropdown-link">
+                              Edit
+                            </a>
+                            <a href="#" className="dropdown-link">
+                              Delete
+                            </a>
+                            <button className="dropdown-link">Download</button>
+                            {/* <a href="#" className="dropdown-link">
+                              Download
+                            </a> */}
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                    {expandedInvoiceId === invoice.invoiceId && (
+                      <tr>
+                        <td colSpan="7">
+                          <table>
+                            <thead>
+                              <tr>
+                                <th className="centered-cell">Invoice Id</th>
+                                <th className="centered-cell">Mobile</th>
+                                <th className="centered-cell">Date</th>
+                                <th className="centered-cell">Total Amount</th>
+                                <th className="centered-cell">Paid Amount</th>
+                                <th className="centered-cell">Due Amount</th>
+                                <th className="centered-cell">Due Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td className="centered-cell">{invoice.invoiceId}</td>
+                                <td className="centered-cell">{invoice.mobile}</td>
+                                <td className="centered-cell">{invoice.invoiceDate}</td>
+                                <td className="centered-cell">{invoice.totalAmount}</td>
+                                <td className="centered-cell">{invoice.paidAmount}</td>
+                                <td className="centered-cell">{invoice.dueAmount}</td>
+                                <td className="centered-cell">{invoice.dueDate}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>

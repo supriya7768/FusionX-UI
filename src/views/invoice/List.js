@@ -1,4 +1,9 @@
 import * as React from 'react';
+// import React, { useRef, useState } from 'react';
+// import { Grid } from '@mui/material';
+// import MainCard from 'ui-component/cards/MainCard';
+// import { gridSpacing } from 'store/constant';
+
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -16,7 +21,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 function createData(invoiceTo, invoiceId, courseName, dueAmount, dueDate, status, action) {
   return {
-    invoiceTo,
+    element: invoiceTo,
     invoiceId,
     courseName,
     dueAmount,

@@ -25,10 +25,10 @@ const invoice = {
       breadcrumbs: false
     },
     {
-      id: 'register3',
-      title: 'Update',
+      id: 'listdeleted',
+      title: 'List Deleted',
       type: 'item',
-      url: '/pages/register/register5',
+      url: '/invoice/Listdeleted',
       icon: icons.IconZoomMoney,
       breadcrumbs: false
     },

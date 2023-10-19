@@ -1,8 +1,13 @@
 // assets
-import { IconDashboard } from '@tabler/icons';
+// import { IconReportMoney, IconMoneybag, IconZoomMoney } from '@tabler/icons';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import PeopleIcon from '@mui/icons-material/People';
 
 // constant
-const icons = { IconDashboard };
+const icons = {
+  PersonAddAltIcon,
+  PeopleIcon
+};
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -17,7 +22,7 @@ const lead = {
       title: 'Add Lead',
       type: 'item',
       url: '/lead/AddLead',
-      icon: icons.IconReportMoney,
+      icon: PersonAddAltIcon,
       breadcrumbs: false
     },
     {
@@ -25,7 +30,7 @@ const lead = {
       title: 'Lead List',
       type: 'item',
       url: '/lead/LeadList',
-      icon: icons.IconMoneybag,
+      icon: icons.PeopleIcon,
       breadcrumbs: false
     }
   ]

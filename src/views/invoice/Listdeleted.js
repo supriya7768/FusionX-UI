@@ -5,7 +5,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import '../style/invoice.css';
 
-const List = () => {
+const Listdeleted = () => {
   const [invoices, setInvoices] = useState([]);
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState('asc');
@@ -163,7 +163,7 @@ const List = () => {
                     <span>Invoice to</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('name')}>
-                        {sortDirection === 'asc' ? '' : ''}
+                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
                       </button>
                     </div>
                   </th>
@@ -171,7 +171,7 @@ const List = () => {
                     <span>Course Name</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('courseName')}>
-                        {sortDirection === 'asc' ? '' : ''}
+                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
                       </button>
                     </div>
                   </th>
@@ -179,7 +179,7 @@ const List = () => {
                     <span>Created on</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('invoiceDate')}>
-                        {sortDirection === 'asc' ? '' : ''}
+                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
                       </button>
                     </div>
                   </th>
@@ -187,7 +187,7 @@ const List = () => {
                     <span>Total Amount</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('totalAmount')}>
-                        {sortDirection === 'asc' ? '' : ''}
+                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
                       </button>
                     </div>
                   </th>
@@ -195,7 +195,7 @@ const List = () => {
                     <span>Due Amount</span>
                     <div className="dropdown">
                       <button className={`dropdownn-button ${sortDirection}`} onClick={() => handleSort('dueAmount')}>
-                        {sortDirection === 'asc' ? '' : ''}
+                        {sortDirection === 'asc' ? ' ▼' : ' ▲'}
                       </button>
                     </div>
                   </th>
@@ -249,4 +249,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default Listdeleted;

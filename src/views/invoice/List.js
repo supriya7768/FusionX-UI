@@ -4,16 +4,20 @@ import { Grid } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import '../style/invoice.css';
+// import "~font-awesome/css/font-awesome.css";
+
 
 const List = () => {
   const [invoices, setInvoices] = useState([]);
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState('asc');
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [dropdownNames, setDropdownNames] = useState([]);
+  // const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  // const [dropdownNames, setDropdownNames] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [expandedInvoiceId, setExpandedInvoiceId] = useState(null);
   const [overdueInvoices, setOverdueInvoices] = useState([]); // State to hold overdue invoices
+
+  const currentDate = new Date().toLocaleDateString('en-GB');
 
   useEffect(() => {
     // Fetch data from your API when the component mounts
@@ -39,17 +43,17 @@ const List = () => {
     }
   };
 
-  const displayDropdown = (names) => {
-    return (
-      <div className={`dropdown-content ${isDropdownVisible ? 'visible' : ''}`}>
-        {names.map((name) => (
-          <a key={name} href="#">
-            {name}
-          </a>
-        ))}
-      </div>
-    );
-  };
+  // const displayDropdown = (names) => {
+  //   return (
+  //     <div className={`dropdown-content ${isDropdownVisible ? 'visible' : ''}`}>
+  //       {names.map((name) => (
+  //         <a key={name} href="#">
+  //           {name}
+  //         </a>
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   const handleShowAllInvoices = () => {
     setSelectedStatus('All');
@@ -61,7 +65,7 @@ const List = () => {
     // Filter and set overdue invoices with status "Pending"
     const overduePending = invoices.filter((invoice) => {
       const dueDate = new Date(invoice.dueDate);
-      return dueDate > currentDate && invoice.status === 'Pending';
+      return dueDate < currentDate && invoice.status === 'Pending';
     });
 
     setOverdueInvoices(overduePending);
@@ -116,11 +120,12 @@ const List = () => {
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
           <div>
-            <div className="dropdown" onMouseEnter={() => setIsDropdownVisible(true)} onMouseLeave={() => setIsDropdownVisible(false)}>
-              <button className="dropbtn">Select User</button>
-              {isDropdownVisible && displayDropdown([...new Set(dropdownNames)])}
+            <div className="search">
+              <input className="inp1" type="text" placeholder="Enter Lead Name" />
+              <button className="searchbtn">
+                <i className="fas fa-search"></i>
+              </button>
             </div>
-            <input className="inp" type="text" placeholder="Enter Lead Name"></input>
             <div className="navbar">
               <div>
                 <a href="#" onClick={handleShowAllInvoices}>

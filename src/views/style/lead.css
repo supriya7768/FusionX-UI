@@ -88,7 +88,7 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: #7e9fc3; /* Background color on hover */
 }
 
-.dropdownn-link {
+.dropdown-link {
   display: block; /* Display the links as block elements (one below another) */
   text-decoration: none; /* Remove underlines from links */
   color: #000; /* Set the text color (you can adjust the color) */
@@ -100,23 +100,11 @@ input[type='number']::-webkit-outer-spin-button {
   margin-right: auto;
 }
 
-.dropdownn-link:hover {
+.dropdown-link:hover {
   color: #007bff; /* Change text color on hover (you can adjust the color) */
 }
 
-.dropdownn-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 100px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  left: -100px; /* Adjust the left value to position it to the left */
-  top: -40px; /* Adjust the top value to position it above the button */
-  border-radius: 4px;
-  padding: 8px 0;
-  text-align: center;
-}
+
 
 .dropdownn-button {
   background-color: transparent;
@@ -264,4 +252,39 @@ table td:hover .dropdown-content {
   text-decoration: none;
   margin: 0 10px;
   cursor: pointer;
+}
+
+/* Style for the dropdown button and content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+}
+
+/* .dropdown:hover .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  left: -100px;
+  top: -40px;
+  border-radius: 4px;
+  padding: 8px 0;
+  text-align: center;
+} */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  left: -100px;
+  top: -40px;
+  border-radius: 4px;
+  padding: 8px 0;
+  text-align: center;
 }

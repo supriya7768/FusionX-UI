@@ -165,7 +165,7 @@ const LeadList = () => {
                           <td className="centered-cell">{lead.status}</td>
                           <td className="centered-cell">
                             <div className="dropdown">
-                              <button className="dropdownn-button">&#10247;</button>
+                              <button className="dropdown-button">&#10247;</button>
                               <div className="dropdown-content">
                                 <a href="#" className="dropdown-link">
                                   Edit

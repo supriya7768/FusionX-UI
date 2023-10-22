@@ -1,152 +1,279 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import React, { useState, useEffect } from 'react';
+import { Grid } from '@mui/material';
 
-function createData(name, course, mobile, email, address, status) {
-  return {
-    name,
-    course,
-    mobile,
-    email,
-    address,
-    status,
-    history: [
-      {
-        degree: 'B.E',
-        field: 'Civil',
-        passingYear: 3,
-        collegeName: 'RCPIT',
-        expierience: 0,
-        attendedBy: 'Shakila'
-      }
-    ]
+import MainCard from 'ui-component/cards/MainCard';
+import { gridSpacing } from 'store/constant';
+import '../style/lead.css';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+const LeadList = () => {
+  const [lead, setLead] = useState([]);
+  const [sortField, setSortField] = useState(null);
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [selectedStatus, setSelectedStatus] = useState('All');
+  const [expandedLeadId, setExpandedLeadId] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState({});
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [searchResults, setSearchResults] = useState([]); // State to store search results
+  const [searchMode, setSearchMode] = useState(false); // State to track search mode
+
+  useEffect(() => {
+    // Fetch data from your API when the component mounts
+    fetch('http://localhost:8080/getAllLeads')
+      .then((response) => response.json())
+      .then((data) => {
+        setLead(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleSearch = () => {
+    // Make an API request to search with the query
+    fetch(`http://localhost:8080/search?data=${searchQuery}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResults(data); // Update search results state with the data
+        setSearchMode(true); // Enter search mode
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
   };
-}
 
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const handleSort = (field) => {
+    if (field === sortField) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const handleShowAllLead = () => {
+    setSelectedStatus('All');
+    setSearchMode(false); // Exit search mode
+  };
+
+  const filterLeadByStatus = () => {
+    if (selectedStatus === 'All') {
+      return lead; // Return all lead
+    } else {
+      return lead.filter((lead) => lead.status === selectedStatus);
+    }
+  };
+
+  const sortedLead = [...filterLeadByStatus()].sort((a, b) => {
+    if (sortField) {
+      if (a[sortField] < b[sortField]) {
+        return sortDirection === 'asc' ? -1 : 1;
+      }
+      if (a[sortField] > b[sortField]) {
+        return sortDirection === 'asc' ? 1 : -1;
+      }
+    }
+    return 0;
+  });
+
+  const toggleLeadDetails = (leadId) => {
+    setDropdownOpen((prevState) => ({
+      ...prevState,
+      [leadId]: !prevState[leadId]
+    }));
+
+    if (expandedLeadId === leadId) {
+      setExpandedLeadId(null);
+    } else {
+      setExpandedLeadId(leadId);
+    }
+  };
 
   return (
-    <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell align="right">{row.course}</TableCell>
-        <TableCell align="right">{row.mobile}</TableCell>
-        <TableCell align="right">{row.email}</TableCell>
-        <TableCell align="right">{row.address}</TableCell>
-        <TableCell align="right">{row.status}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Details
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Degree</TableCell>
-                    <TableCell align="left">Field</TableCell>
-                    <TableCell align="left">Passing Year</TableCell>
-                    <TableCell align="left">College Name</TableCell>
-                    <TableCell align="left">Expierience</TableCell>
-                    <TableCell align="left">Attended By</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.degree}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.degree}
-                      </TableCell>
-                      <TableCell>{historyRow.field}</TableCell>
-                      <TableCell align="left">{historyRow.passingYear}</TableCell>
-                      <TableCell align="left">{historyRow.collegeName}</TableCell>
-                      <TableCell align="left">{historyRow.expierience}</TableCell>
-                      <TableCell align="left">{historyRow.attendedBy}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
+    <MainCard title="Lead List">
+      <Grid container spacing={gridSpacing}>
+        <Grid item xs={12}>
+          <div>
+            <div className="search">
+              <input
+                className="inp1"
+                type="text"
+                placeholder="Enter Lead Name"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="searchbtn" onClick={handleSearch}>
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
+            </div>
+            <div className="navbar">
+              <div>
+                <a href="#" onClick={handleShowAllLead}>
+                  All Leads
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Open')}>
+                  Open
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Deal Done')}>
+                  Deal Done
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('PostPone')}>
+                  Postpone
+                </a>
+                <a href="#" onClick={() => setSelectedStatus('Cancel')}>
+                  Cancel
+                </a>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th className="centered-cell"></th>
+                  <th className="centered-cell">Lead Name</th>
+                  <th className="centered-cell">Course Name</th>
+                  <th className="centered-cell">Mobile Number</th>
+                  <th className="centered-cell">Email Id</th>
+                  <th className="centered-cell">Address</th>
+                  <th onClick={() => handleSort('status')} className="centered-cell">
+                    <span>Status</span>
+                    <div className="dropdown">
+                      <button className={`dropdown-button ${sortDirection}`} onClick={() => handleSort('status')}>
+                        {sortDirection === 'asc' ? '' : ''}
+                      </button>
+                    </div>
+                  </th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchMode
+                  ? searchResults.map((lead) => (
+                      <React.Fragment key={lead.userId}>
+                        <tr>
+                          <td className="centered-cell">
+                            <button className="details-button" onClick={() => toggleLeadDetails(lead.userId)}>
+                              {expandedLeadId === lead.userId ? '▼' : '►'}
+                            </button>
+                          </td>
+                          <td className="centered-cell">{lead.leadName}</td>
+                          <td className="centered-cell">{lead.courseName}</td>
+                          <td className="centered-cell">{lead.mobileNo}</td>
+                          <td className="centered-cell">{lead.email}</td>
+                          <td className="centered-cell">{lead.address}</td>
+                          <td className="centered-cell">{lead.status}</td>
+                          <td className="centered-cell">
+                            <div className="dropdown">
+                              <button className="dropdownn-button">&#10247;</button>
+                              <div className="dropdown-content">
+                                <a href="#" className="dropdown-link">
+                                  Edit
+                                </a>
+                                <a href="#" className="dropdown-link">
+                                  Delete
+                                </a>
+                                {lead.status === 'Deal Done' && <button className="dropdown-link">Create Invoice</button>}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        {expandedLeadId === lead.userId && dropdownOpen[lead.userId] && (
+                          <tr>
+                            <td colSpan="8">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th className="centered-cell">Degree</th>
+                                    <th className="centered-cell">Field</th>
+                                    <th className="centered-cell">College Name</th>
+                                    <th className="centered-cell">Passing Year</th>
+                                    <th className="centered-cell">Experience</th>
+                                    <th className="centered-cell">Years of Experience</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td className="centered-cell">{lead.degree}</td>
+                                    <td className="centered-cell">{lead.field}</td>
+                                    <td className="centered-cell">{lead.collegeName}</td>
+                                    <td className="centered-cell">{lead.passingYear}</td>
+                                    <td className="centered-cell">{lead.experience}</td>
+                                    <td className="centered-cell">{lead.yearsOfExperience}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    ))
+                  : sortedLead.map((lead) => (
+                      <React.Fragment key={lead.userId}>
+                        <tr>
+                          <td className="centered-cell">
+                            <button className="details-button" onClick={() => toggleLeadDetails(lead.userId)}>
+                              {expandedLeadId === lead.userId ? '▼' : '►'}
+                            </button>
+                          </td>
+                          <td className="centered-cell">{lead.leadName}</td>
+                          <td className="centered-cell">{lead.courseName}</td>
+                          <td className="centered-cell">{lead.mobileNo}</td>
+                          <td className="centered-cell">{lead.email}</td>
+                          <td className="centered-cell">{lead.address}</td>
+                          <td className="centered-cell">{lead.status}</td>
+                          <td className="centered-cell">
+                            <div className="dropdown">
+                              <button className="dropdown-button">&#10247;</button>
+                              <div className="dropdown-content">
+                                <a href="#" className="dropdown-link">
+                                  Edit
+                                </a>
+                                <a href="#" className="dropdown-link">
+                                  Delete
+                                </a>
+                                {lead.status === 'Deal Done' && <button className="dropdown-link">Create Invoice</button>}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        {expandedLeadId === lead.userId && dropdownOpen[lead.userId] && (
+                          <tr>
+                            <td colSpan="8">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th className="centered-cell">Degree</th>
+                                    <th className="centered-cell">Field</th>
+                                    <th className="centered-cell">College Name</th>
+                                    <th className="centered-cell">Passing Year</th>
+                                    <th className="centered-cell">Experience</th>
+                                    <th className="centered-cell">Years of Experience</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td className="centered-cell">{lead.degree}</td>
+                                    <td className="centered-cell">{lead.field}</td>
+                                    <td className="centered-cell">{lead.collegeName}</td>
+                                    <td className="centered-cell">{lead.passingYear}</td>
+                                    <td className="centered-cell">{lead.experience}</td>
+                                    <td className="centered-cell">{lead.yearsOfExperience}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    ))}
+              </tbody>
+            </table>
+          </div>
+        </Grid>
+      </Grid>
+    </MainCard>
   );
-}
-
-Row.propTypes = {
-  row: PropTypes.shape({
-    course: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    mobile: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        field: PropTypes.string.isRequired,
-        collegeName: PropTypes.string.isRequired,
-        passingYear: PropTypes.number.isRequired,
-        expierience: PropTypes.number.isRequired,
-        attendedBy: PropTypes.string.isRequired,
-        degree: PropTypes.string.isRequired
-      })
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired
-  }).isRequired
 };
 
-const rows = [
-  createData('Supriya Mahajan', 'Java Full Stack Development', 123456, 'mahajansupriya@gmail.com', 'Jalgaon', 'Open'),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5)
-];
-
-export default function CollapsibleTable() {
-  return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Lead Name</TableCell>
-            <TableCell align="right">Course Intrested</TableCell>
-            <TableCell align="left">Mobile No</TableCell>
-            <TableCell align="right">Email ID</TableCell>
-            <TableCell align="left">Address</TableCell>
-            <TableCell align="left">Status</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
+export default LeadList;

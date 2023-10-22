@@ -6,7 +6,6 @@ import { gridSpacing } from 'store/constant';
 import '../style/invoice.css';
 // import "~font-awesome/css/font-awesome.css";
 
-
 const List = () => {
   const [invoices, setInvoices] = useState([]);
   const [sortField, setSortField] = useState(null);
@@ -42,18 +41,6 @@ const List = () => {
       setSortDirection('asc');
     }
   };
-
-  // const displayDropdown = (names) => {
-  //   return (
-  //     <div className={`dropdown-content ${isDropdownVisible ? 'visible' : ''}`}>
-  //       {names.map((name) => (
-  //         <a key={name} href="#">
-  //           {name}
-  //         </a>
-  //       ))}
-  //     </div>
-  //   );
-  // };
 
   const handleShowAllInvoices = () => {
     setSelectedStatus('All');
